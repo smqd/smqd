@@ -2,6 +2,8 @@
 
 SMQD is for Scalable Message Queue Daemon
 
+[![Build Status](https://travis-ci.org/smqd/smqd.svg?branch=develop)](https://travis-ci.org/smqd/smqd)
+
 ## Related Projects
 
 - [smqd-core](https://github.com/smqd/smqd-core/)
