@@ -5,7 +5,7 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val versionString = "0.1.0-SNAPSHOT"
+val versionString = "0.1.0"
 val smqdVersion = "0.1.0"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
