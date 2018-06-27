@@ -25,6 +25,7 @@ package-lock.json
 .sbtopts
 
 **/VERSION.NFO
+src/main/resources/smqd-version.conf
 
 # macOS
 .DS_Store

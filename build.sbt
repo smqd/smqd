@@ -6,6 +6,7 @@ import sbt.StdoutOutput
 import scala.sys.process._
 
 val versionString = "0.1.0-SNAPSHOT"
+val smqdVersion = "0.1.0"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
 lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
@@ -27,10 +28,11 @@ val smqd = project.in(file(".")).enablePlugins(
   publishLocal := ((): Unit),
   publishArtifact := false
 ).settings(
+  resolvers += Resolver.bintrayRepo("smqd", "smqd"),
   libraryDependencies ++= Seq (
-    "t2x.smqd" %% "smqd-core" % versionString,
-    "t2x.smqd" %% "smqd-bridge-mqtt" % versionString,
-    "t2x.smqd" %% "smqd-bridge-http" % versionString
+    "t2x.smqd" %% "smqd-core" % smqdVersion,
+    "t2x.smqd" %% "smqd-bridge-mqtt" % smqdVersion,
+    "t2x.smqd" %% "smqd-bridge-http" % smqdVersion
   )
 ).settings(
   // sbt runtime options
