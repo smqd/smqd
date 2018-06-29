@@ -6,9 +6,6 @@ import sbt.StdoutOutput
 import scala.sys.process._
 
 val versionString = "0.3.0-SNAPSHOT"
-val smqdCoreVersion = "0.3.0-SNAPSHOT"
-val smqdBridgeHttpVersion = "0.1.0"
-val smqdBridgeMqttVersion = "0.1.0"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
 lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
@@ -18,7 +15,7 @@ val versionFile       = s"echo version = $versionString" #> file("src/main/resou
 val commitVersionFile = s"echo commit-version = $gitCommitFull" #>> file("src/main/resources/smqd-version.conf") !
 
 val smqd = project.in(file(".")).enablePlugins(
-  JavaAppPackaging
+  JavaAppPackaging, AutomateHeaderPlugin
 ).settings(
   organization := "t2x.smqd",
   name := "smqd",
@@ -32,10 +29,18 @@ val smqd = project.in(file(".")).enablePlugins(
 ).settings(
   resolvers += Resolver.bintrayRepo("smqd", "smqd"),
   libraryDependencies ++= Seq (
-    "t2x.smqd" %% "smqd-core" % smqdCoreVersion,
-    "t2x.smqd" %% "smqd-bridge-mqtt" % smqdBridgeMqttVersion,
-    "t2x.smqd" %% "smqd-bridge-http" % smqdBridgeHttpVersion
+    "t2x.smqd" %% "smqd-core" % "0.3.0-SNAPSHOT",
+    "t2x.smqd" %% "smqd-bridge-mqtt" % "0.1.0",
+    "t2x.smqd" %% "smqd-bridge-http" % "0.1.0",
+    "t2x.smqd" %% "smqd-ext-msteams-webhook" % "0.1.0-SNAPSHOT"
   )
+).settings(
+  // License
+  organizationName := "UANGEL",
+  startYear := Some(2018),
+  licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt")),
+  headerMappings := headerMappings.value + (HeaderFileType.scala -> HeaderCommentStyle.cppStyleLineComment),
+  headerMappings := headerMappings.value + (HeaderFileType.conf -> HeaderCommentStyle.hashLineComment)
 ).settings(
   // sbt runtime options
   javaOptions in run ++= Seq(
@@ -52,7 +57,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mappings in Universal ++= directory(sourceDir = "bin").filterNot{ case (_, fname) => Set("bin/.gitkeep").contains(fname) },
   mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
   mainClass in Compile := Some("t2x.smqd.Main"),
-  packageName in Universal := s"smqd-${(version in ThisBuild).value}",
+  packageName in Universal := s"smqd-$versionString",
   executableScriptName := "smqd",
   bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini")
   // Not need for production,
