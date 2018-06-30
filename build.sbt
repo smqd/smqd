@@ -5,7 +5,7 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val versionString = "0.3.0-SNAPSHOT"
+val versionString = "0.3.1-SNAPSHOT"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
 lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
@@ -17,7 +17,7 @@ val commitVersionFile = s"echo commit-version = $gitCommitFull" #>> file("src/ma
 val smqd = project.in(file(".")).enablePlugins(
   JavaAppPackaging, AutomateHeaderPlugin
 ).settings(
-  organization := "t2x.smqd",
+  organization := "com.thing2x",
   name := "smqd",
   version := versionString,
   // no source code in this project
@@ -27,19 +27,19 @@ val smqd = project.in(file(".")).enablePlugins(
   publishLocal := ((): Unit),
   publishArtifact := false
 ).settings(
-  resolvers += Resolver.bintrayRepo("smqd", "smqd"),
   libraryDependencies ++= Seq (
-    "t2x.smqd" %% "smqd-core" % "0.3.0-SNAPSHOT",
-    "t2x.smqd" %% "smqd-bridge-mqtt" % "0.1.0",
-    "t2x.smqd" %% "smqd-bridge-http" % "0.1.0",
-    "t2x.smqd" %% "smqd-ext-msteams-webhook" % "0.1.0-SNAPSHOT"
-  )
+    "com.thing2x" %% "smqd-core" % "0.3.1-SNAPSHOT",
+    "com.thing2x" %% "smqd-bridge-mqtt" % "0.3.1-SNAPSHOT",
+    "com.thing2x" %% "smqd-bridge-http" % "0.3.1-SNAPSHOT"
+  ),
+  resolvers += Resolver.sonatypeRepo("public")
 ).settings(
   // License
   organizationName := "UANGEL",
   startYear := Some(2018),
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt")),
   headerMappings := headerMappings.value + (HeaderFileType.scala -> HeaderCommentStyle.cppStyleLineComment),
+  headerMappings := headerMappings.value + (HeaderFileType.sh -> HeaderCommentStyle.hashLineComment),
   headerMappings := headerMappings.value + (HeaderFileType.conf -> HeaderCommentStyle.hashLineComment)
 ).settings(
   // sbt runtime options
