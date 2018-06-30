@@ -17,7 +17,7 @@ SMQD :: Scala MQtt Daemon
 - Set environment variable `SMQD_HOME_DIR` where smqd installed directory path
 
 ```bash
-    export SMQD_HOME_DIR=/usr/local/smqd-x.y.z
+$ export SMQD_HOME_DIR=/usr/local/smqd-x.y.z
 ```
 
 * start smqd
@@ -52,7 +52,7 @@ When you run `start-smqd.sh` to start smqd, it will find the smqd config file fr
 
 To change the default settings of smqd, edit configuration file `$SMQD_HOME_DIR/conf/smqd-conf`.
 
-- node name
+#### node name
 
 The name of smqd instance. Node name should be unique in the cluster.
 
@@ -63,24 +63,24 @@ The default settings are like below.
   node_name = ${?NODE_NAME}
 ```
 
-It means assign "node-01" for `node_name` and
-if environment variable `$NODE_NAME` exists, it will overwrite the previous value (here "node-01").
-If `$NODE_NAME` does not exists, "node-01" will be kept for `node_name`.
+It means `node_name` has "node-01" by default and
+if environment variable `$NODE_NAME` is defined, it will overwrite the default value.
+If `$NODE_NAME` does not exists, `node_name` will keep "node-01" as value.
 
 This feature is great when you run a smqd in container environment (e.g Docker).
 
-- actor system name
+#### actor system name
 
 smqd is based on [akka](https://akka.io). And this setting is used for akka system's name.
-If you have planning to run multiple smqd processes in a cluster, you must apply same `actor_system_name` for all nodes in a cluster
-We recommend to change this with unique name enven you don't have plan of clustering for now.
+If you are planning to run multiple smqd processes for a cluster, you must apply same `actor_system_name` for all nodes in a cluster.
+We recommend to change this with unique name enven you don't have a plan ot use cluster for now.
 
 ```
   actor_system_name = "default"
   actor_system_name = ${?ACTOR_SYSTEM_NAME}
 ```
 
-- Reference configuration (default values)
+#### Reference configuration (default values)
 
 You can find the full reference configuration [here](https://github.com/smqd/smqd-core/src/main/resources/smqd-ref.conf).
 
