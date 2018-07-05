@@ -20,8 +20,6 @@ val smqd = project.in(file(".")).enablePlugins(
   organization := "com.thing2x",
   name := "smqd",
   version := versionString,
-  // no source code in this project
-  sourcesInBase := false,
   // no publish
   publish := ((): Unit),
   publishLocal := ((): Unit),
