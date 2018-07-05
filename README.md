@@ -2,9 +2,9 @@
 
 SMQD :: Scala MQtt Daemon
 
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/smqd/smqd.svg?branch=develop)](https://travis-ci.org/smqd/smqd)
 [![Github Releases](https://img.shields.io/github/downloads/smqd/smqd/latest/total.svg)](https://github.com/smqd/smqd/releases/latest)
-[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## Install
 
@@ -23,13 +23,17 @@ $ export SMQD_HOME_DIR=/usr/local/smqd-x.y.z
 * start smqd
 
 ```
-$SMQD_HOME_DIR/bin/start-smqd.sh
+cd $SMQD_HOME_DIR
+./bin/start-smqd.sh
 ```
+
+> If you want to run smqd as foreground process for debugging purpose,
+execute `./bin/smqd` instead of `./bin/start-smqd.sh`, and `^C` to stop
 
 * stop smqd
 
 ```
-$SMQD_HOME_DIR/bin/stop-smqd.sh
+./bin/stop-smqd.sh
 ```
 
 ## Configurations
@@ -46,7 +50,10 @@ You don't need '-J' prefix for the other values that is not a Java VM options.
 ```
 
 When you run `start-smqd.sh` to start smqd, it will find the smqd config file from
-`-Dconfig.file=${SMQD_HOME_DIR}/conf/smqd.conf`.
+`-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf`.
+
+> Caution: You can not use environment variable `$SMQD_HOME_DIR` in `smqd-jvm.ini`.
+Make sure to use a absolute path only in the file
 
 ### SMQD Settings - Basic
 

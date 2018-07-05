@@ -5,7 +5,7 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val versionString = "0.3.1-SNAPSHOT"
+val versionString = "0.3.4-SNAPSHOT"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
 lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
@@ -28,9 +28,7 @@ val smqd = project.in(file(".")).enablePlugins(
   publishArtifact := false
 ).settings(
   libraryDependencies ++= Seq (
-    "com.thing2x" %% "smqd-core" % "0.3.1-SNAPSHOT",
-    "com.thing2x" %% "smqd-bridge-mqtt" % "0.3.1-SNAPSHOT",
-    "com.thing2x" %% "smqd-bridge-http" % "0.3.1-SNAPSHOT"
+    "com.thing2x" %% "smqd-core" % versionString
   ),
   resolvers += Resolver.sonatypeRepo("public")
 ).settings(
@@ -56,10 +54,11 @@ val smqd = project.in(file(".")).enablePlugins(
   // Packaging Settings
   mappings in Universal ++= directory(sourceDir = "bin").filterNot{ case (_, fname) => Set("bin/.gitkeep").contains(fname) },
   mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
+  mappings in Universal ++= directory(sourceDir = "plugin").filterNot{ case (_, fname) => Set("plugin/.gitkeep").contains(fname) },
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-$versionString",
   executableScriptName := "smqd",
-  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini")
+  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini"),
   // Not need for production,
   // bashScriptExtraDefines ++= Seq("""addJava "-DAPP_HOME=$(dirname $app_home)" """)
   // scriptClasspath := Seq("${app_home}/../conf") ++ scriptClasspath.value
