@@ -3,3 +3,17 @@ language: scala
 jdk: oraclejdk8
 scala:
 - 2.12.6
+after_success:
+- |
+  if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_BRANCH == "develop" ]]; then
+    sbt ++$TRAVIS_SCALA_VERSION dist;
+  fi
+deploy:
+  provider: releases
+  api_key:
+    secure: qxkT7/d8nrlBHRlO6LYq70xcYLl2igUbPkUhECXEGls3nCKQQzwP4y0AyNps7IgWEJQa6jf2dNMoFYdChXbe1GeHw178RUqoavvShEg6fGvXH13ETlkvQcV/q1JlXMUuAhfHLqzjGPdvgClNJ6K1Maa6LsD7KNDcpwUcTSsjLZ7Tc/3MYO1u662aMFH64kivk0LqMo8iP0G1YmFpFBxcXVibGhJGyAKjAUtZffaxR5BmWQu4WfQ6xIYOj6O81dp7l1zLvIEE02xEAcdIuF2qlH+jqYUztjA059/+W0l8tRb4haQqMaI8FaPmEiKGJAhcVqxQ4g8oeEoSNwe4g0LOYEYP5kxlEk9LruxwqMNyqFfgfngX6xC2Lu9mhcfK6UUsQjJ1Iau4v09AmPdSFXE8MmpZpD88sjNx3jz06082HOr1u0t4WYhvZu5RLLIufpkrcsSsK8PN1sDwG9MdR0lsLeAwFHrMSmGc5AEGbnFwUyIAmB/PTcaaNhxGkjmIuurfyAHQR+6Vl4MKDpWUGNR0zqm9DjqciIhWPP0j3dxxhPCxSRsTDONBnm/duraLzt1Dcfq0NjxYbaBfEMDslTbBVGc/cLcrK/x6HpJF1RyTms2wx4mBdoWo3pi4QzVa9Srp+Fi3m55Z+9ugUHVlmhCJUb0/B0mrbEN/mDlIEUb7EFg=
+  file: target/universal/smqd-${TRAVIS_TAG}.zip
+  on:
+    repo: smqd/smqd
+    branch: develop
+    tags: true

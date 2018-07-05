@@ -56,7 +56,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
   mappings in Universal ++= directory(sourceDir = "plugin").filterNot{ case (_, fname) => Set("plugin/.gitkeep").contains(fname) },
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
-  packageName in Universal := s"smqd-$versionString",
+  packageName in Universal := s"smqd-v$versionString",
   executableScriptName := "smqd",
   bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini"),
   // Not need for production,
