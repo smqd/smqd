@@ -5,13 +5,13 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val versionString = "0.3.4-SNAPSHOT"
+val smqdVersion = "0.3.4"
 
 lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
 lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
 lazy val gitCommitFull = "git rev-parse HEAD".!!.trim
 
-val versionFile       = s"echo version = $versionString" #> file("src/main/resources/smqd-version.conf") !
+val versionFile       = s"echo version = $smqdVersion" #> file("src/main/resources/smqd-version.conf") !
 val commitVersionFile = s"echo commit-version = $gitCommitFull" #>> file("src/main/resources/smqd-version.conf") !
 
 val smqd = project.in(file(".")).enablePlugins(
@@ -19,14 +19,14 @@ val smqd = project.in(file(".")).enablePlugins(
 ).settings(
   organization := "com.thing2x",
   name := "smqd",
-  version := versionString,
+  version := smqdVersion,
   // no publish
   publish := ((): Unit),
   publishLocal := ((): Unit),
   publishArtifact := false
 ).settings(
   libraryDependencies ++= Seq (
-    "com.thing2x" %% "smqd-core" % versionString
+    "com.thing2x" %% "smqd-core" % smqdVersion
   ),
   resolvers += Resolver.sonatypeRepo("public")
 ).settings(
@@ -54,7 +54,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
   mappings in Universal ++= directory(sourceDir = "plugin").filterNot{ case (_, fname) => Set("plugin/.gitkeep").contains(fname) },
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
-  packageName in Universal := s"smqd-v$versionString",
+  packageName in Universal := s"smqd-v$smqdVersion",
   executableScriptName := "smqd",
   bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini"),
   // Not need for production,
