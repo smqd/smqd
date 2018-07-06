@@ -1,0 +1,55 @@
+body {
+  background-color: #1d1e24;
+}
+
+#page-wrapper {
+  background-color: #141519;
+}
+
+
+
+/** top navigation **/
+.navbar-fixed-top, .navbar-static-top{
+  background-color: #1d1e24 !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #313437 !important;
+}
+.navbar-right .navbar-form-custom {
+  float: none;
+}
+/** end top navigation **/
+
+/** left navigation **/
+ul.nav-second-level {
+  background-color: #1d1e24 !important;
+}
+.nav .bar-title {
+  z-index: 1003;
+  padding-left: 40px;
+  height: 61px;
+  line-height: 61px;
+  // width: 220px;
+  border-bottom: 1px solid #313437;
+}
+
+/** end left navigation **/
+
+/* begin widget */
+.widget {
+  background-color: #232429 !important;
+  border: 1px solid transparent;
+}
+/* end widget */
+
+.ibox-title, .ibox-content {
+  background-color: #232429 !important;
+  border-color: #313437 !important;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 1px solid #313437;
+}
+.table > thead > tr > th {
+  border-bottom: 1px solid #313437;
+}
