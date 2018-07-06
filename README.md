@@ -40,7 +40,7 @@ execute `./bin/smqd` instead of `./bin/start-smqd.sh`, and `^C` to stop
 
 ### JVM Settings
 
-To change the JVM settings of smqd, edit `$SMQD_HOME_DIR/conf/smqd-jvm.ini`
+To change the JVM settings of smqd, edit `$SMQD_HOME_DIR/bin/smqd-jvm.ini`
 
 In this file you can change JVM options with `-J` prefix.
 You don't need '-J' prefix for the other values that is not a Java VM options.
@@ -49,11 +49,34 @@ You don't need '-J' prefix for the other values that is not a Java VM options.
 -J-Xms256m -J-Xmx256m
 ```
 
-When you run `start-smqd.sh` to start smqd, it will find the smqd config file from
-`-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf`.
-
 > Caution: You can not use environment variable `$SMQD_HOME_DIR` in `smqd-jvm.ini`.
 Make sure to use a absolute path only in the file
+
+- smqd config file path
+
+When you execute `start-smqd.sh` or `smqd` to start, it will find the smqd config file from `-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf`.
+
+```
+-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf
+```
+
+- logback config file path
+
+```
+-Dlogback.configurationFile=<Path SMQD_HOME_DIR>/conf/logback.xml
+```
+
+- plugin directory
+
+```
+-Dsmqd.plugin.dir=<Path SMQD_HOME_DIR>/plugin
+```
+
+- plugin manifest path
+
+```
+-Dsmqd.plugin.manifest=<Path SMQD_HOME_DIR>/conf/plugin-manifest.conf
+```
 
 ### SMQD Settings - Basic
 

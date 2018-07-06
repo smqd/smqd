@@ -56,7 +56,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-v$smqdVersion",
   executableScriptName := "smqd",
-  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini"),
+  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/bin/smqd-jvm.ini"),
   // Not need for production,
   // bashScriptExtraDefines ++= Seq("""addJava "-DAPP_HOME=$(dirname $app_home)" """)
   // scriptClasspath := Seq("${app_home}/../conf") ++ scriptClasspath.value
