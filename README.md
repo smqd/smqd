@@ -27,20 +27,23 @@ cd $SMQD_HOME_DIR
 ./bin/start-smqd.sh
 ```
 
-> If you want to run smqd as foreground process for debugging purpose,
-execute `./bin/smqd` instead of `./bin/start-smqd.sh`, and `^C` to stop
-
 * stop smqd
 
 ```
 ./bin/stop-smqd.sh
 ```
 
+* Foreground process for debug
+
+If you want to run smqd as foreground process for debugging purpose,
+execute `./bin/start-smqd.sh -f` with `-f` option
+
+
 ## Configurations
 
 ### JVM Settings
 
-To change the JVM settings of smqd, edit `$SMQD_HOME_DIR/bin/smqd-jvm.ini`
+To change the JVM settings of smqd, edit `$SMQD_HOME_DIR/conf/smqd-jvm.ini`
 
 In this file you can change JVM options with `-J` prefix.
 You don't need '-J' prefix for the other values that is not a Java VM options.
@@ -52,9 +55,11 @@ You don't need '-J' prefix for the other values that is not a Java VM options.
 > Caution: You can not use environment variable `$SMQD_HOME_DIR` in `smqd-jvm.ini`.
 Make sure to use a absolute path only in the file
 
+### start-smqd.sh
+
 - smqd config file path
 
-When you execute `start-smqd.sh` or `smqd` to start, it will find the smqd config file from `-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf`.
+When you execute `start-smqd.sh`, it will find the smqd config file from `-Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf`.
 
 ```
 -Dconfig.file=<Path SMQD_HOME_DIR>/conf/smqd.conf
@@ -69,7 +74,7 @@ When you execute `start-smqd.sh` or `smqd` to start, it will find the smqd confi
 - plugin directory
 
 ```
--Dsmqd.plugin.dir=<Path SMQD_HOME_DIR>/plugin
+-Dsmqd.plugin.dir=<Path SMQD_HOME_DIR>/plugins
 ```
 
 - plugin manifest path

@@ -3,16 +3,7 @@ import sbt.Keys._
 import NativePackagerHelper._
 import sbt.StdoutOutput
 
-import scala.sys.process._
-
 val smqdVersion = "0.4.0-SNAPSHOT"
-
-lazy val gitBranch = "git rev-parse --abbrev-ref HEAD".!!.trim
-lazy val gitCommitShort = "git rev-parse HEAD | cut -c 1-7".!!.trim
-lazy val gitCommitFull = "git rev-parse HEAD".!!.trim
-
-val versionFile       = s"echo version = $smqdVersion" #> file("src/main/resources/smqd-version.conf") !
-val commitVersionFile = s"echo commit-version = $gitCommitFull" #>> file("src/main/resources/smqd-version.conf") !
 
 val smqd = project.in(file(".")).enablePlugins(
   JavaAppPackaging, AutomateHeaderPlugin
@@ -56,7 +47,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-v$smqdVersion",
   executableScriptName := "smqd",
-  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/bin/smqd-jvm.ini"),
+  bashScriptConfigLocation := Some("${SMQD_HOME_DIR}/conf/smqd-jvm.ini"),
   // Not need for production,
   // bashScriptExtraDefines ++= Seq("""addJava "-DAPP_HOME=$(dirname $app_home)" """)
   // scriptClasspath := Seq("${app_home}/../conf") ++ scriptClasspath.value
