@@ -27,7 +27,7 @@ package-lock.json
 
 **/VERSION.NFO
 src/main/resources/smqd-version.conf
-plugin/*.jar
+plugins/*.jar
 
 # macOS
 .DS_Store
