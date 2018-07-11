@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { detectBody } from 'src/app/app.helpers';
+import { detectBody } from '../../../app.helpers';
 
 @Component({
   selector: 'app-basic',

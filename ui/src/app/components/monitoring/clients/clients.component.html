@@ -1,0 +1,47 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Clients</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <!-- <div class="ibox-title">
+            <h5>Basic Table</h5>
+
+            <div ibox-tools></div>
+        </div> -->
+        <div class="ibox-content">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Qos</th>
+                <th>Actor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let client of clients?.result?.objects">
+                <td>{{client.topic}}</td>
+                <td>{{client.qos}}</td>
+                <td>{{client.actor}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination_container">
+      <div class="col-lg-12 col-12">
+        <pagination [boundaryLinks]="true" [totalItems]="clients?.result?.total_num" [rotate]="true" (ngModel)="condition.curr_page"
+        [itemsPerPage]="condition.page_size" [maxSize]="10" (pageChanged)="pageChanged($event)"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"> 
+        </pagination>
+      </div>
+    </div>
+
+  </div>
+</div>

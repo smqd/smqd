@@ -16,13 +16,13 @@ export class NavigationComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    jQuery('#side-menu').metisMenu();
+    // jQuery('#side-menu').metisMenu();
 
-    if (jQuery("body").hasClass('fixed-sidebar')) {
-      jQuery('.sidebar-collapse').slimscroll({
-        height: '100%'
-      })
-    }
+    // if (jQuery("body").hasClass('fixed-sidebar')) {
+    //   jQuery('.sidebar-collapse').slimscroll({
+    //     height: '100%'
+    //   })
+    // }
   }
 
   activeRoute(routename: string): boolean{

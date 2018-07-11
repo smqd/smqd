@@ -6,7 +6,10 @@ body {
   background-color: #141519;
 }
 
-
+.dark-bg {
+  background-color: #232429;
+  border: 1px solid #313437;
+}
 
 /** top navigation **/
 .navbar-fixed-top, .navbar-static-top{
@@ -33,6 +36,14 @@ ul.nav-second-level {
   border-bottom: 1px solid #313437;
 }
 
+.nav > li > div {
+  color: #a7b1c2;
+  font-weight: 600;
+  padding: 14px 20px 14px 25px;
+}
+.nav > li > div i {
+  margin-right: 6px;
+}
 /** end left navigation **/
 
 /* begin widget */
@@ -42,6 +53,7 @@ ul.nav-second-level {
 }
 /* end widget */
 
+/* begin table */
 .ibox-title, .ibox-content {
   background-color: #232429 !important;
   border-color: #313437 !important;
@@ -53,3 +65,31 @@ ul.nav-second-level {
 .table > thead > tr > th {
   border-bottom: 1px solid #313437;
 }
+.table .table {
+  background-color: #232429;
+  margin-bottom: 0px;
+  border-top: 0px;
+}
+.table .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 0px;
+  padding: 0px 3px 3px 3px;
+}
+/* end table */
+
+/* begin paginataion */
+.pagination_container {padding-top:30px;text-align:center;}
+.pagination > li > a, .pagination > li > span {
+  background-color: #232429;
+  border: 1px solid #313437;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #232429;
+  border-color: #313437;
+}
+/* end pagination */

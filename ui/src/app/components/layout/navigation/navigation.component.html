@@ -1,6 +1,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
   <div class="sidebar-collapse">
-    <ul class="nav metismenu" id="side-menu">
+    <ul class="nav" id="side-menu">
       <li class="bar-title">
         <img alt="t2x" class="logo" src="assets/smqd/common/t2x.png">
         <span>Dashboard</span>
@@ -24,21 +24,27 @@
           IN+
         </div>
       </li> -->
-      <li [ngClass]="{active: activeRoute('starter')}">
-        <a [routerLink]="['/starterview']"><i class="fa fa-th-large"></i> <span class="nav-label">Starter view</span></a>
-      </li>
-      <li [ngClass]="{active: activeRoute('dashboards')}">
-        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard examples</span> <span class="fa arrow"></span> </a>
-        <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('dashboards')}">
-          <li [ngClass]="{active: activeRoute('dashboard1')}"><a [routerLink]="['/dashboards/dashboard1']">Dashboard v.1</a></li>
-          <li [ngClass]="{active: activeRoute('dashboard2')}"><a [routerLink]="['/dashboards/dashboard2']">Dashboard v.2</a></li>
-          <li [ngClass]="{active: activeRoute('dashboard3')}"><a [routerLink]="['/dashboards/dashboard3']">Dashboard v.3</a></li>
-          <li [ngClass]="{active: activeRoute('dashboard4')}"><a [routerLink]="['/dashboards/dashboard4']">Dashboard v.4</a></li>
-          <li [ngClass]="{active: activeRoute('dashboard5')}"><a [routerLink]="['/dashboards/dashboard5']">Dashboard v.5</a></li>
+
+      <li>
+        <div><i class="fa fa-th-large"></i> <span class="nav-label">MONITORING</span></div>
+        <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('monitoring')}">
+          <li [ngClass]="{active: activeRoute('dashboard')}"><a [routerLink]="['/monitoring/dashboard']">Overview</a></li>
+          <li [ngClass]="{active: activeRoute('clients')}"><a [routerLink]="['/monitoring/clients']">Clients</a></li>
+          <li [ngClass]="{active: activeRoute('topics')}"><a [routerLink]="['/monitoring/routes']">Routes</a></li>
         </ul>
       </li>
-      <li [ngClass]="{active: activeRoute('login')}">
-        <a [routerLink]="['/login']"><i class="fa fa-th-large"></i> <span class="nav-label">Login example</span></a>
+      <li>
+        <div><i class="fa fa-th-large"></i> <span class="nav-label">PLUGINS</span></div>
+        <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('plugin')}">
+          <li [ngClass]="{active: activeRoute('packages')}"><a [routerLink]="['/plugin/packages']">Total</a></li>
+          <li [ngClass]="{active: activeRoute('plugins')}"><a [routerLink]="['/plugin/plugins']">Installed</a></li>
+        </ul>
+      </li>
+      <li>
+        <div><i class="fa fa-th-large"></i> <span class="nav-label">ADMIN</span></div>
+        <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('admin')}">
+          <li [ngClass]="{active: activeRoute('user')}"><a [routerLink]="['/admin/user']">User</a></li>
+        </ul>
       </li>
     </ul>
 

@@ -1,0 +1,52 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>Install Plugin</h2>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <!-- <div class="ibox-title">
+              <h5>Basic Table</h5>
+  
+              <div ibox-tools></div>
+          </div> -->
+          <div class="ibox-content">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Version</th>
+                  <th>Description</th>
+                  <th>Provider</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let package of packages?.result?.objects">
+                  <td>{{package.name}}</td>
+                  <td>{{package.version}}</td>
+                  <td>{{package.description}}</td>
+                  <td>{{package.provider}}</td>
+                  <td *ngIf="!package.installable || package.installable && package.installed"></td>
+                  <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md dark-bg">Download</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination_container">
+        <div class="col-lg-12 col-12">
+          <pagination [boundaryLinks]="true" [totalItems]="packages?.result?.total_num" [rotate]="true" (ngModel)="condition.curr_page"
+          [itemsPerPage]="condition.page_size" [maxSize]="10" (pageChanged)="pageChanged($event)"
+          previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"> 
+          </pagination>
+        </div>
+      </div>
+  
+    </div>
+  </div>
