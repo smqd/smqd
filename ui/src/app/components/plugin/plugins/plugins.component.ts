@@ -12,7 +12,6 @@ import { PluginsResult, InstanceResult } from '../../../models/plugin';
 export class PluginsComponent implements OnInit {
 
   plugins: PluginsResult;
-  //instanceResult: InstanceResult;
 
   condition = {page_size:10, curr_page: 1}
 
@@ -23,7 +22,6 @@ export class PluginsComponent implements OnInit {
   }
 
   getPlugins(condition) {
-    //this.loaderService.showLoader();
     this.pluginService.getPlugins(condition).subscribe(
       plugins => {
         if (plugins['code']) {
@@ -31,8 +29,6 @@ export class PluginsComponent implements OnInit {
         }
         
         this.plugins = plugins;
-        console.log('this.plugins = ', this.plugins);
-        //this.loaderService.hideLoader();
       }
     );
   }
@@ -50,7 +46,6 @@ export class PluginsComponent implements OnInit {
             plugin.instances.forEach((instance) => {
               if (instance.name == receivedInstance.result.name) {
                 instance.status = receivedInstance.result.status;
-                console.log('instance.status = ', instance.status);
               }
             });
           }
@@ -72,7 +67,6 @@ export class PluginsComponent implements OnInit {
             plugin.instances.forEach((instance) => {
               if (instance.name == receivedInstance.result.name) {
                 instance.status = receivedInstance.result.status;
-                console.log('instance.status = ', instance.status);
               }
             });
           }
@@ -81,12 +75,25 @@ export class PluginsComponent implements OnInit {
     );
   }
 
+  removeInstance(pluginName, instanceName) {
+    this.pluginService.removeInstance(pluginName, instanceName).subscribe(
+      result => {
+        if (result['code']) {
+          return;
+        }
+
+        this.getPlugins(this.condition);        
+      }
+    );
+  }
+
+
   pageChanged(event: any): void {
     this.condition.curr_page = event.page;
     this.getPlugins(this.condition);
   }
 
   goConfig(pluginName: string, instanceName:string) {
-    this.router.navigateByUrl('/plugin/'+pluginName + '/' + instanceName + '/config');
   }
+
 }

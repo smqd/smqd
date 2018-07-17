@@ -27,4 +27,18 @@ export class PackageService extends BaseService{
       catchError(this.handleError<PackageExact>(`getPlugin`))
     );
   }
+
+  packageInstall(packageName:string): Observable<Object> {
+    const url = `${this.packagesUrl}/${packageName}/install`;
+    return this.httpClient.put(url, '').pipe(
+      catchError(this.handleError('packageInstall'))
+    );
+  }
+
+  packageReload(packageName:string): Observable<Object> {
+    const url = `${this.packagesUrl}/${packageName}/reload`;
+    return this.httpClient.put(url, '').pipe(
+      catchError(this.handleError('packageReload'))
+    );
+  }
 }

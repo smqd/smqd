@@ -14,18 +14,23 @@ import { httpInterceptorProviders } from './interceptors';
 import { BaseService } from './services/base.service';
 import { DashboardService } from './services/dashboard.service';
 import { ClientService } from './services/client.service';
+import { SubscriptionService } from './services/subscription.service';
+import { PluginService } from './services/plugin.service';
+import { PackageService } from './services/package.service';
 
 // App views
 import { MonitoringModule } from "./components/monitoring/monitoring.module";
 import { PluginModule } from './components/plugin/plugin.module';
 import { RouteService } from './services/route.service';
 import { PaginationModule } from 'ngx-bootstrap';
-//import { KeysPipe } from './constants/keys.pipe';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    //KeysPipe
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +46,13 @@ import { PaginationModule } from 'ngx-bootstrap';
   providers: [
     httpInterceptorProviders,
     BaseService,
+    AuthService,
     DashboardService,
     ClientService,
-    RouteService
+    RouteService,
+    SubscriptionService,
+    PluginService,
+    PackageService
   ],
   bootstrap: [AppComponent]
 })

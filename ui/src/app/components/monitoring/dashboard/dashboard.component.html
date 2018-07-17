@@ -10,6 +10,7 @@
     <div class="col-lg-12">
       <h4>Broker</h4>
     </div>
+    <!--
     <div class="col-lg-3">
       <div class="widget style1 white-bg">
         <div class="row">
@@ -23,6 +24,7 @@
         </div>
       </div>
     </div>
+    -->
     <div class="col-lg-3">
       <div class="widget style1 white-bg">
         <div class="row">
@@ -36,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <div class="widget style1 white-bg">
         <div class="row">
           <div class="col-xs-4 text-center">
@@ -61,7 +63,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
 <!-- Nodes(1)-->
@@ -118,6 +120,28 @@
               </tr>
             </thead>
             <tbody>
+              <tr *ngFor="let key of metrics?.result | keys">
+                <td>{{key}}</td>
+                <td>{{metrics.result[key]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">  
+          <table class="table">
+            <thead>
+              <tr>
+                <th>The Messages Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
               <tr *ngFor="let key of metricsMessages | keys">
                 <td>{{key}}</td>
                 <td>{{metricsMessages[key]}}</td>
@@ -148,6 +172,7 @@
           </div>
         </div>
       </div>
+    -->
   </div>
 
 </div>

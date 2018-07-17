@@ -5,6 +5,7 @@ import { RoutesComponent } from './routes/routes.component';
 import { ClientsComponent } from './clients/clients.component';
 import { PaginationModule } from 'ngx-bootstrap';
 import { KeysPipe } from '../../constants/keys.pipe';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 @NgModule({
   imports: [
@@ -15,12 +16,15 @@ import { KeysPipe } from '../../constants/keys.pipe';
     DashboardComponent,
     RoutesComponent,
     ClientsComponent,
+    SubscriptionsComponent,
     KeysPipe
   ],
   exports: [
     DashboardComponent,
     RoutesComponent,
-    ClientsComponent
+    ClientsComponent,
+    SubscriptionsComponent,
+    KeysPipe
   ]
 })
 export class MonitoringModule { }

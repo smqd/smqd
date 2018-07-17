@@ -9,6 +9,23 @@ body {
 .dark-bg {
   background-color: #232429;
   border: 1px solid #313437;
+  color: #888;
+}
+
+hr {
+  border-top: 1px solid #313437;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #232429;
+  opacity: 0.3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #232429;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #232429;
 }
 
 /** top navigation **/
@@ -54,7 +71,7 @@ ul.nav-second-level {
 /* end widget */
 
 /* begin table */
-.ibox-title, .ibox-content {
+.ibox-title, .ibox-content, .ibox-footer {
   background-color: #232429 !important;
   border-color: #313437 !important;
 }
@@ -93,3 +110,8 @@ ul.nav-second-level {
   border-color: #313437;
 }
 /* end pagination */
+
+/* begin section */
+.btn-group-sm .btn-sm {
+  margin-top: 25px;
+}

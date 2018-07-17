@@ -26,6 +26,9 @@
                   <td>{{route.topic}}</td>
                   <td>{{route.nodes}}</td>
                 </tr>
+                <tr *ngIf="!routes?.result?.total_num">
+                  <td colspan="2">No Data</td>
+                </tr>
               </tbody>
             </table>
           </div>

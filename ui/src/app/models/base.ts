@@ -13,3 +13,7 @@ export class Page {
     objects: object;
   }
 }
+
+export interface Deserializable {
+  deserialize(input: any): this;
+}

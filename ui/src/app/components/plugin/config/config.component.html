@@ -1,3 +1,52 @@
-<p>
-  config works!
-</p>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Configuration</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox">
+        <div class="ibox-title">
+            <h5>{{instanceName}}</h5>
+
+            <div ibox-tools></div>
+        </div>
+
+        <div *ngIf="!instanceConfig">
+          <div class="ibox-content">
+              <div class="row">
+                  No Default Configuration
+              </div>
+          </div>
+          <div class="ibox-footer">
+            <button type="button" class="btn btn-sm dark-bg" (click)="goBack()">Back</button>
+          </div>
+        </div>
+        
+        <div *ngIf="instanceConfig">
+          <div class="ibox-content">
+            <div class="row">
+              <div *ngFor="let column of instanceConfig">
+                <div class="col-lg-4">
+                  <app-input [column]="column"></app-input>
+
+                </div>
+              </div>
+            </div>
+            <div class="ibox-footer">
+              <div class="form-group row">
+                <!-- <div class="col-sm-4 col-sm-offset-2"> -->
+                  <button type="button" class="btn btn-sm dark-bg" (click)="changeInstanceConfig()">Confirm</button>
+                  <button type="button" class="btn btn-sm dark-bg" (click)="goBack()">Cancel</button>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

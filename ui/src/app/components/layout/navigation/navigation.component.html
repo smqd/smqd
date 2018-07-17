@@ -31,6 +31,7 @@
           <li [ngClass]="{active: activeRoute('dashboard')}"><a [routerLink]="['/monitoring/dashboard']">Overview</a></li>
           <li [ngClass]="{active: activeRoute('clients')}"><a [routerLink]="['/monitoring/clients']">Clients</a></li>
           <li [ngClass]="{active: activeRoute('topics')}"><a [routerLink]="['/monitoring/routes']">Routes</a></li>
+          <li [ngClass]="{active: activeRoute('subscriptions')}"><a [routerLink]="['/monitoring/subscriptions']">Subscriptions</a></li>
         </ul>
       </li>
       <li>
@@ -40,12 +41,12 @@
           <li [ngClass]="{active: activeRoute('plugins')}"><a [routerLink]="['/plugin/plugins']">Installed</a></li>
         </ul>
       </li>
-      <li>
+      <!-- <li>
         <div><i class="fa fa-th-large"></i> <span class="nav-label">ADMIN</span></div>
         <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('admin')}">
           <li [ngClass]="{active: activeRoute('user')}"><a [routerLink]="['/admin/user']">User</a></li>
         </ul>
-      </li>
+      </li> -->
     </ul>
 
   </div>

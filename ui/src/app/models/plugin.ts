@@ -1,4 +1,4 @@
-import { Base } from "./base";
+import { Base, Deserializable } from "./base";
 
 class Instance {
   plugin: string;
@@ -51,6 +51,37 @@ export class ConfigResult extends Base {
   }
   
   result: {
-
+    
   }
 }
+
+export class Column {
+  key: string;
+  title: string;
+  type: string;
+  value: any;
+}
+
+export class Section {
+  title: string;
+  rows: [{
+    columns: Column[];
+  }];
+}
+
+export class ConfigSchema {
+  constructor(obj) {
+    obj && Object.assign(this, obj);
+  }
+
+  sections: Section[];
+}
+
+// export class Config implements Deserializable{
+//   instanceName: string;
+
+//   deserialize(input: any) {
+//     Object.assign(this, input);
+//     return this;
+//   }
+// }

@@ -28,6 +28,9 @@
                 <td>{{client.qos}}</td>
                 <td>{{client.actor}}</td>
               </tr>
+              <tr *ngIf="!clients?.result?.total_num">
+                <td colspan="3">No Data</td>
+              </tr>
             </tbody>
           </table>
         </div>

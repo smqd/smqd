@@ -19,7 +19,6 @@ export class ClientsComponent implements OnInit {
   }
 
   getClients(condition) {
-    //this.loaderService.showLoader();
     this.clientService.getClients(condition).subscribe(
       clients => {
         if (clients['code']) {
@@ -27,7 +26,6 @@ export class ClientsComponent implements OnInit {
         }
           
         this.clients = clients;
-        //this.loaderService.hideLoader();
       }
     );
   }

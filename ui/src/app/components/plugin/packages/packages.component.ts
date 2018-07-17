@@ -33,6 +33,26 @@ export class PackagesComponent implements OnInit {
     );
   }
 
+  install(packageName: string) {
+    this.packageService.packageInstall(packageName).subscribe(
+      result => {
+        if (result) {
+          console.log('package install result ', result);
+        }
+      }
+    );
+  }
+
+  reload(packageName: string) {
+    this.packageService.packageReload(packageName).subscribe(
+      result => {
+        if (result) {
+          console.log('package reload result ', result);
+        }
+      }
+    );
+  }
+
   pageChanged(event: any): void {
     this.condition.curr_page = event.page;
     this.getPlugins(this.condition);

@@ -31,8 +31,21 @@ export class PluginService extends BaseService{
   }
 
   /* instance */
+  createInstance(pluginName: string, instanceName: string, config:Object): Observable<Object | InstanceResult> {
+    const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}`;
+    return this.httpClient.post<InstanceResult>(url, config).pipe(
+      catchError(this.handleError('crateInstance'))
+    );
+  }
+
+  removeInstance(pluginName: string, instanceName: string): Observable<Object | InstanceResult> {
+    const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}`;
+    return this.httpClient.delete<InstanceResult>(url).pipe(
+      catchError(this.handleError('removeInstance'))
+    );
+  }
+
   stopInstance(pluginName: string, instanceName: string): Observable<Object | InstanceResult> {
-    //const name = typeof device === 'string' ? device : device.deviceName;
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/stop`;
     return this.httpClient.put<InstanceResult>(url, '').pipe(
       catchError(this.handleError('stopInstance'))
@@ -40,7 +53,6 @@ export class PluginService extends BaseService{
   }
 
   startInstance(pluginName: string, instanceName: string): Observable<Object | InstanceResult> {
-    //const name = typeof device === 'string' ? device : device.deviceName;
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/start`;
     return this.httpClient.put<InstanceResult>(url, '').pipe(
       catchError(this.handleError('stopInstance'))
@@ -48,11 +60,26 @@ export class PluginService extends BaseService{
   }
 
   /* config */
-  getConfig(pluginName: string, instanceName: string): Observable<ConfigResult> {
+  getPluginConfig(pluginName: string): Observable<ConfigResult> {
+    const url = `${this.pluginsUrl}/${pluginName}/config`;
+    return this.httpClient.get<ConfigResult>(url).pipe(
+      tap(_ => console.log(`fetched config`)),
+      catchError(this.handleError<PluginsResult>(`getConfig`))
+    );
+  }
+
+  getInstanceConfig(pluginName: string, instanceName: string): Observable<ConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/config`;
     return this.httpClient.get<ConfigResult>(url).pipe(
       tap(_ => console.log(`fetched config`)),
       catchError(this.handleError<PluginsResult>(`getConfig`))
+    );
+  }
+
+  modifyInstanceConfig(pluginName: string, instanceName: string, config:Object): Observable<Object | InstanceResult> {
+    const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}`;
+    return this.httpClient.patch<InstanceResult>(url, config).pipe(
+      catchError(this.handleError('modifyInstanceConfig'))
     );
   }
 

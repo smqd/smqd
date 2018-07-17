@@ -1,0 +1,33 @@
+/* login */
+.login_field {max-width:490px;margin:10px auto 0 auto;padding:45px 15px;border:1px solid #dce3ea;background-color:#fff;}
+.login_field .logo {width:118px;height:72px;margin:0 auto;background:url('/assets/smqd/common/login_logo.png') no-repeat;}
+.login_field .title {padding-bottom:50px;font-size:40px;color:#222;line-height:42px;font-weight:600;text-align:center;}
+.login_field .txt {padding-bottom:64px;font-size:18px;color:#6a737d;line-height:30px;text-align:center;}
+.login_field .inputs {padding-bottom:30px;}
+.login_field .inputs .form-control {height:36px;padding:8px 10px;}
+.login_field .inputs .id,
+.login_field .inputs .email {margin-bottom:6px;}
+.login_field .inputs .pw {margin-bottom:10px;}
+.login_field .inputs .btn {display:block;padding:10px;background-color:#246efa;font-size:14px;color:#fff;}
+.login_field .inputs .btn:hover,
+.login_field .inputs .btn:focus {background-color:#1d2e4c;}
+.login_field .inputs .check_l {margin-top:9px;font-size:12px;color:#586069;}
+.login_field .comment {margin:8px 0 26px 0;}
+.login_field .comment li {position:relative;padding-left:10px;margin-top:5px;color:#6a737d;}
+.login_field .comment li:before {content:'';position:absolute;top:9px;left:0;width:2px;height:2px;background-color:#6a737d;}
+.login_field .comment li.font_red {color:#ff0000;}
+.login_field .comment li.font_red:before {background-color:#ff0000;}
+.login_field .btns_area {padding:16px 0 0 0;border-top:1px solid #f2f2f5;font-size:12px;color:#586069;text-align:center;}
+.login_field .btns_area a {color:#000;}
+.login_field .btns_area a:hover {text-decoration:underline;}
+.login_field .btns_area .left {float:left;width:50%;text-align:left;}
+.login_field .btns_area .right {float:right;width:50%;text-align:right;}
+@media (min-width: 768px) {
+	.login_field {width:490px;padding:55px 50px;margin-top:150px;margin-bottom:40px;}
+	.login_field .txt {font-size:22px;line-height:40px;}
+	.login_field .inputs .form-control {height:50px;font-size:16px;}
+	.login_field .inputs .btn {padding:15px;font-size:16px;}
+	// .login_field .btns_area .left {float:left;width:50%;text-align:left;}
+	// .login_field .btns_area .right {float:right;width:50%;text-align:right;}
+	.login_field .btns_area:after {content:'';display:block;clear:both;}
+}
