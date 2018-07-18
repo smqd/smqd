@@ -1,5 +1,4 @@
 <div class="form-group">
   <label>{{column.key}}</label>
-  <input type="text" class="form-control b-r-md dark-bg" placeholder="{{column.title}}" [(ngModel)]="column.value">
-  <!-- {{column.value}} -->
+  <input type="{{column.type=='integer'? 'number':'text'}}" class="form-control b-r-md dark-bg" placeholder="{{column.title}}" [(ngModel)]="column.value">
 </div>

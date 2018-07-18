@@ -4,7 +4,7 @@ export const Config = {
   apiBaseUrl : "api/v1",
   // metrics
   metrics : {
-    messages: "core-mqtt.messages",
-    bytes: "core-mqtt.messages.byte"
+    'core-mqtt': "core-mqtt",
+    jvm: "jvm"
   }
 }

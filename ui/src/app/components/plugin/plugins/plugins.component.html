@@ -49,8 +49,8 @@
                           <td>{{instance.name}}</td>
                           <td [ngClass]="{'text-warning' : instance.status == 'RUNNING'}">{{instance.status}}</td>
                           <td>
-                            <button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'RUNNING'" (click)="stopInstance(plugin.name, instance.name)">stop</button>
-                            <button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'STOPPED'" (click)="startInstance(plugin.name, instance.name)">start</button>
+                            <button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'RUNNING' || instance.status == 'STARTING'" (click)="stopInstance(plugin.name, instance.name)">stop</button>
+                            <button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'STOPPED' || instance.status == 'STOPING'" (click)="startInstance(plugin.name, instance.name)">start</button>
                           </td>
                           <td><button type="button" class="b-r-md dark-bg" (click)="goConfig(plugin.name, instance.name)">config</button></td>
                           <td *ngIf="plugin.instantiability == 'SINGLE'"></td>

@@ -14,9 +14,10 @@ export class DashboardComponent implements OnInit {
 
   version: Version;
   nodes: NodesResult;
-  metrics: Base;
-  metricsBytes: object;
-  metricsMessages: object;
+  metrics: Base; 
+  sortedMetrics: object;
+  metricsJvm: object;
+  metricsMqtt: object;
 
   constructor(private dashboardService: DashboardService, private metricService: MetricService) { }
 
@@ -58,17 +59,24 @@ export class DashboardComponent implements OnInit {
         }
 
         this.metrics = metrics;
-        this.metricsBytes = {};
-        this.metricsMessages = {};
-        for(var prop in this.metrics['result']) {
-          console.log('prop = ', prop, this.metrics['result'][prop]);
-          // if (prop.startsWith(Config.metrics.bytes)) {
-          //   this.metricsBytes[prop.substr(Config.metrics.bytes.length + 1)] = this.metrics['result'][prop]; 
-          // } else if (prop.startsWith(Config.metrics.messages)) {
-          //   this.metricsMessages[prop.substr(Config.metrics.messages.length + 1)] = this.metrics['result'][prop];
-          // }
+        this.sortedMetrics = Object
+        .keys(this.metrics['result'])
+        .sort((a, b) => this.metrics['result'][a]-this.metrics['result'][b])
+        .reduce((_sortedObj, key) => ({
+          ..._sortedObj, 
+          [key]: this.metrics['result'][key]
+        }), {})
+
+        this.metricsJvm = {};
+        this.metricsMqtt = {};
+        for(var prop in this.sortedMetrics) {
+          if (prop.startsWith(Config.metrics.jvm)) {
+            this.metricsJvm[prop.substr(Config.metrics.jvm.length + 1)] = this.sortedMetrics[prop]; 
+          } else if (prop.startsWith(Config.metrics['core-mqtt'])) {
+            this.metricsMqtt[prop.substr(Config.metrics['core-mqtt'].length + 1)] = this.sortedMetrics[prop];
+          }
         }
       }
-    );   
+    );
   }
 }

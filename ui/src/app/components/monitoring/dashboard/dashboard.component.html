@@ -115,14 +115,36 @@
           <table class="table">
             <thead>
               <tr>
-                <th>The Messages Data</th>
+                <th>The Core-Mqtt Data</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let key of metrics?.result | keys">
+            <tbody *ngIf="metricsMqtt">
+              <tr *ngFor="let key of metricsMqtt | keys">
                 <td>{{key}}</td>
-                <td>{{metrics.result[key]}}</td>
+                <td>{{metricsMqtt[key]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">  
+          <table class="table">
+            <thead>
+              <tr>
+                <th>The Jvm Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="metricsJvm">
+              <tr *ngFor="let key of metricsJvm | keys">
+                <td>{{key}}</td>
+                <td>{{metricsJvm[key]}}</td>
               </tr>
             </tbody>
           </table>
@@ -131,27 +153,6 @@
     </div>
 
     <!--
-    <div class="col-lg-4">
-      <div class="ibox float-e-margins">
-        <div class="ibox-content">  
-          <table class="table">
-            <thead>
-              <tr>
-                <th>The Messages Data</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let key of metricsMessages | keys">
-                <td>{{key}}</td>
-                <td>{{metricsMessages[key]}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
     <div class="col-lg-4">
         <div class="ibox float-e-margins">
           <div class="ibox-content">  

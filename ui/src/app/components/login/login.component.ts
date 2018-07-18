@@ -6,14 +6,16 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login.component.scss']
+  //encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
 
   myForm: FormGroup;
-  user: FormControl;
-  password: FormControl;
+  // user: FormControl;
+  // password: FormControl;
+  
+  error: object;
 
   constructor(private auth: AuthService, private router: Router, private fb: FormBuilder) {
   }
@@ -26,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(credential) {
-    console.log('credential = ', credential);
     this.auth.login(credential).subscribe(result => {
       console.log('result', result);
       if (!result) {
@@ -38,9 +39,12 @@ export class LoginComponent implements OnInit {
       //this.eventService.dispatchEvent('login:success');
       this.router.navigateByUrl('/monitoring/dashboard');
     }, 
-    error => {},
-    () => {
-      console.log('login success');
-    });
+    error => {
+      console.log('login error', error);
+      this.error = error;
+    });//,
+    // () => {
+    //   console.log('login success');
+    // });
   }
 }

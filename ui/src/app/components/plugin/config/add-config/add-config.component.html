@@ -25,7 +25,7 @@
             <div *ngIf="configSchema?.sections">
               <app-section [section]="section" [defaultConfig]="defaultConfig" *ngFor="let section of configSchema.sections" (addRow)="addGrowableRow($event)"></app-section>
             </div>
-            <div *ngIf="!configSchema?.sections">
+            <div class="col-lg-11 row" *ngIf="!configSchema?.sections">
               <div *ngFor="let column of instanceConfig">
                 <div class="col-lg-4">
                   <app-input [column]="column"></app-input>

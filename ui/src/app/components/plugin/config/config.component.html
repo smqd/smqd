@@ -14,7 +14,7 @@
             <div ibox-tools></div>
         </div>
 
-        <div *ngIf="!instanceConfig">
+        <!-- <div *ngIf="!instanceConfig">
           <div class="ibox-content">
               <div class="row">
                   No Default Configuration
@@ -23,15 +23,18 @@
           <div class="ibox-footer">
             <button type="button" class="btn btn-sm dark-bg" (click)="goBack()">Back</button>
           </div>
-        </div>
+        </div> -->
         
-        <div *ngIf="instanceConfig">
           <div class="ibox-content">
             <div class="row">
-              <div *ngFor="let column of instanceConfig">
-                <div class="col-lg-4">
-                  <app-input [column]="column"></app-input>
-
+              <div *ngIf="configSchema?.sections">
+                <app-section [section]="section" [defaultConfig]="viewConfig" *ngFor="let section of configSchema.sections" (addRow)="addGrowableRow($event)"></app-section>
+              </div>
+              <div *ngIf="!configSchema?.sections">
+                <div *ngFor="let column of instanceConfig">
+                  <div class="col-lg-4">
+                    <app-input [column]="column"></app-input>
+                  </div>
                 </div>
               </div>
             </div>
@@ -44,7 +47,7 @@
               </div>
             </div>
           </div>
-        </div>
+
 
       </div>
     </div>

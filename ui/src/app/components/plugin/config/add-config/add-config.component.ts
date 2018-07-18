@@ -45,13 +45,29 @@ export class AddConfigComponent implements OnInit {
         }
         if (this.pluginConfig.result['default-config']) {
           this.newConfig = Object.assign(this.pluginConfig.result['default-config']);
+          //this.defaultConfig = Object.assign(this.pluginConfig.result['default-config']);
           this.defaultConfig = new KeystringPipe().transform(this.pluginConfig.result['default-config']);
+          console.log('this.defaultConfig = ', this.defaultConfig);
         }
-        if (!this.configSchema.sections) {
+
+        if (this.configSchema.sections) {
+          this.configSchema.sections.forEach((section) => {
+            section.rows.forEach((row) => {
+              row.columns.forEach((column) => {
+                //console.log('section.row.column', column, this.defaultConfig[column.key]);
+                if (this.defaultConfig[column.key]) {
+                  column.value = this.defaultConfig[column.key];
+                }
+              });
+            })
+          })
+        } else {
+        // configSchema가 없을 경우에는 defaultConfig 만 화면에 표시한다.
           this.instanceConfig = [];
           for (let key in this.defaultConfig) {
             this.instanceConfig.push({key: key, value:this.defaultConfig[key], type:'', title:''});
           }
+          console.log('this.instanceConfig = ', this.instanceConfig);
         }
       }
     );
@@ -59,6 +75,9 @@ export class AddConfigComponent implements OnInit {
 
   addGrowableRow(section: Section) {
     let newRow = JSON.parse(JSON.stringify(section.rows[0]));
+    newRow.columns.forEach((column) => {
+      column.value = null;
+    });
     section.rows.push(newRow);
   }
 
@@ -67,43 +86,49 @@ export class AddConfigComponent implements OnInit {
       alert('instance name is required');
       return;
     }
-    let newInstance = new KeystringPipe().transform(this.configSchema);
-    var newPropKey;
-    var newPropValue;
-    var growableKeyName;
-    for (var obj in newInstance) {
-      if (obj.endsWith('key')) {
-        newPropKey = newInstance[obj];
-      }
-      if (obj.endsWith('value')) {
-        newPropValue = newInstance[obj];
-      }
-      if (newPropKey && newPropValue) {
-        // replace key name of growable property
-        if (newPropKey.includes('$0')) {
-          if (newPropKey.endsWith('$0')) {
-            newPropKey = newPropKey.replace('$0', newPropValue);
-            growableKeyName = newPropValue;
-            newPropKey = null;
-            newPropValue = null;
-            continue;
+    
+    if (this.configSchema.sections) {
+      this.configSchema.sections.forEach((section) => {
+        section.rows.forEach((row) => {
+          var keyList;
+          var obj = {};
+          if (row.type && row.type == 'growable') {
+            row.columns.forEach((column) => {
+              if (column.value && column.value != null) {
+                if (column.key.includes('#')) {
+                  keyList = column.key.split('.#.');
+                }
+                new KeyobjectPipe().transform(obj, column.key.substr(keyList[0].length+3), column.value);
+              }
+            });
+            
+            if (Object.keys(obj).length > 0) {
+              this.newConfig[keyList[0]].push(obj);
+            }
+          } else {
+            row.columns.forEach((column) => {
+              new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+            });
           }
-          newPropKey = newPropKey.replace('$0', growableKeyName);
-        }
-        new KeyobjectPipe().transform(this.newConfig, newPropKey, newPropValue);
-        newPropKey = null;
-        newPropValue = null;
-      }
+        })
+      });
+    } else {
+      this.instanceConfig.forEach((column) => {
+        new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+      });
     }
-    this.newConfig = {'auto-start': false, config: this.newConfig};
-    console.log('newConfig = ', this.newConfig);
-    this.pluginService.createInstance(this.pluginName, this.instanceName, this.newConfig).subscribe(
+
+    //console.log('newConfig = ', this.newConfig);
+    this.pluginService.createInstance(this.pluginName, this.instanceName, {'auto-start': false, config: this.newConfig}).subscribe(
       result => {
         if (result['code']) {
           alert(result['error']);
           return;
         }
         this.location.back();
+      },
+      error => {
+        alert(error.error);
       }
     );
   }

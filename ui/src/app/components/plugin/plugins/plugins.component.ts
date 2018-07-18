@@ -50,6 +50,9 @@ export class PluginsComponent implements OnInit {
             });
           }
         });
+      },
+      error => {
+        alert(error.error);
       }
     );
   }
@@ -71,6 +74,9 @@ export class PluginsComponent implements OnInit {
             });
           }
         });
+      },
+      error => {
+        alert(error.error);
       }
     );
   }
@@ -83,6 +89,9 @@ export class PluginsComponent implements OnInit {
         }
 
         this.getPlugins(this.condition);        
+      },
+      error => {
+        alert(error.error);
       }
     );
   }
@@ -94,6 +103,7 @@ export class PluginsComponent implements OnInit {
   }
 
   goConfig(pluginName: string, instanceName:string) {
+    this.router.navigateByUrl('/plugin/'+pluginName + '/'+instanceName + '/config');
   }
 
 }

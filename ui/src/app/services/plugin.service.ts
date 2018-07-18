@@ -18,14 +18,14 @@ export class PluginService extends BaseService{
 
   getPlugins(condition): Observable<PluginsResult> {
     return this.httpClient.get<PluginsResult>(this.pluginsUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched plugins`)),
+      //tap(_ => console.log(`fetched plugins`)),
       catchError(this.handleError<PluginsResult>(`getPlugins`))
     );
   }
 
   getPlugin(condition): Observable<PluginResult> {
     return this.httpClient.get<PluginResult>(this.pluginsUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched plugin`)),
+      //tap(_ => console.log(`fetched plugin`)),
       catchError(this.handleError<PluginResult>(`getPlugin`))
     );
   }
@@ -63,7 +63,7 @@ export class PluginService extends BaseService{
   getPluginConfig(pluginName: string): Observable<ConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/config`;
     return this.httpClient.get<ConfigResult>(url).pipe(
-      tap(_ => console.log(`fetched config`)),
+      //tap(_ => console.log(`fetched config`)),
       catchError(this.handleError<PluginsResult>(`getConfig`))
     );
   }
@@ -71,7 +71,7 @@ export class PluginService extends BaseService{
   getInstanceConfig(pluginName: string, instanceName: string): Observable<ConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/config`;
     return this.httpClient.get<ConfigResult>(url).pipe(
-      tap(_ => console.log(`fetched config`)),
+      //tap(_ => console.log(`fetched config`)),
       catchError(this.handleError<PluginsResult>(`getConfig`))
     );
   }

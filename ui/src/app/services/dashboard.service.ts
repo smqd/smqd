@@ -19,14 +19,14 @@ export class DashboardService extends BaseService{
 
   getVersion(): Observable<Version> {
     return this.httpClient.get<Version>(this.versionUrl).pipe(
-      tap(_ => console.log(`fetched version`)),
+      //tap(_ => console.log(`fetched version`)),
       catchError(this.handleError<Version>(`getVersion`))
     );
   }
 
   getNodes(): Observable<NodesResult> {
     return this.httpClient.get<NodesResult>(this.nodesUrl).pipe(
-      tap(_ => console.log(`fetched nodes`)),
+      //tap(_ => console.log(`fetched nodes`)),
       catchError(this.handleError<NodesResult>(`getNodes`))
     );
   }

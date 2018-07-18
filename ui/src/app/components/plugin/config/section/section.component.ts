@@ -19,16 +19,50 @@ export class SectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.setDefaultData();
+    //this.setDefaultData();
   }
 
   setDefaultData() {
     this.section.rows.forEach((row) => {
-      row.columns.forEach((column) => {
-        if (this.defaultConfig[column.key]) {
-          column.value = this.defaultConfig[column.key];
-        }
-      });
+      if (row.type && row.type == 'growable') {
+        console.log('growable data setting');
+        var keyName;
+        row.columns.forEach((column) => {
+          console.log('growable column', column);
+          if (column.key.endsWith('$0')) {
+            const prefixIndex = column.key.indexOf('$0');
+            const prefix = column.key.substring(0, prefixIndex-1);
+            console.log('prefix = ', prefix);
+            for (let config in this.defaultConfig) {
+              if (config.substring(0, prefixIndex-1) == prefix) {
+                console.log('config = ', config);
+                const suffix = config.substring(prefixIndex);
+                const suffixIndex = suffix.indexOf('.');
+                keyName = suffix.substring(0, suffixIndex);
+                console.log('keyName 111 = ', keyName, prefix+'.'+keyName);
+                column.value = keyName;
+              }
+            };
+          } else if (column.key.includes('$0') && keyName) {
+            const keys = column.key.split('$0');
+            var columnKeyName = keys[0] + keyName;
+            
+            if (keys.length == 2) {
+              columnKeyName += keys[1];
+            }
+            console.log('keys', keys, columnKeyName, keyName);
+            if (this.defaultConfig[columnKeyName]) {
+              column.value = this.defaultConfig[columnKeyName];
+            }
+          }
+        })
+      } else {
+        row.columns.forEach((column) => {
+          if (this.defaultConfig[column.key]) {
+            column.value = this.defaultConfig[column.key];
+          }
+        });
+      }
     });
   }
 

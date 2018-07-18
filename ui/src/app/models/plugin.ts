@@ -66,6 +66,7 @@ export class Section {
   title: string;
   rows: [{
     columns: Column[];
+    type: string;
   }];
 }
 

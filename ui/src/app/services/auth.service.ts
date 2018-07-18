@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { BaseService } from './base.service';
 import { Login } from '../models/login';
+import { throwError } from '../../../node_modules/rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class AuthService extends BaseService{
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('refresh_token_expiration');
     localStorage.removeItem('username');
-    localStorage.removeItem('serviceName');
+    localStorage.removeItem('token_type');
   }
 
   isAuthTokenExpired(prefix) {
@@ -88,15 +89,15 @@ export class AuthService extends BaseService{
   }
 
   refreshToken(): Observable<any> {
-    console.log('call authService.refreshToken');
     const refreshToken = localStorage.getItem('refresh_token');
+    console.log('call authService.refreshToken', refreshToken);
     if (refreshToken == null) {
       this.clearLocalStorage();
       return Observable.throw('refreshToken is not exist');
     }
 
     return this.httpClient.post(this.refreshUrl, {'refresh_token': refreshToken}).pipe(
-      map((res: Login) => {
+      switchMap((res: Login) => {
         console.log('authService.refreshToken result', res);
 
         this.loginObj = res;
@@ -109,7 +110,7 @@ export class AuthService extends BaseService{
       catchError(error => {
         //this.clearLocalStorage();
         console.log('authService.refreshToken error ', error);
-        return Observable.throw(error);
+        return throwError(error);
       })
     );
   }

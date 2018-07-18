@@ -19,7 +19,6 @@ export class RoutesComponent implements OnInit {
   }
 
   getRoutes(condition) {
-    //this.loaderService.showLoader();
     this.routeService.getRoutes(condition).subscribe(
       routes => {
         if (routes['code']) {
@@ -27,8 +26,6 @@ export class RoutesComponent implements OnInit {
         }
         
         this.routes = routes;
-        console.log('this.routes = ', this.routes);
-        //this.loaderService.hideLoader();
       }
     );
   }
