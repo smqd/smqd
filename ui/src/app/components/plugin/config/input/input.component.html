@@ -1,0 +1,13 @@
+<div class="form-group" *ngIf="column.type != 'boolean'">
+  <label>{{column.key}}</label>
+  <input type="{{column.type=='integer'? 'number':'text'}}" class="form-control b-r-md dark-bg" placeholder="{{column.title}}" [(ngModel)]="column.value">
+</div>
+
+<div class="form-group" *ngIf="column.type == 'boolean'">
+  <label>{{column.key}}</label>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" [(ngModel)]="column.value"> true
+    </label>
+  </div>
+</div>

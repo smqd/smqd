@@ -1,0 +1,39 @@
+<div class="content_section1 bg_gray">
+	<div class="container">
+		
+		<div class="login_field">
+			<img alt="t2x" class="logo" src="assets/smqd/common/login_logo.png">
+			<!-- <h1 class="logo"><span class="sr-only">T2X</span></h1> -->
+
+			<form [formGroup]="myForm" novalidate>
+				<div class="inputs">
+					<input type="text" class="form-control id" formControlName="user" placeholder="ID" autocomplete="user" maxlength="20">
+					<input type="password" class="form-control pw" formControlName="password" placeholder="PASSWORD" autocomplete="password" maxlength="20">
+				
+					<div class="danger" *ngIf="error">
+							<strong>{{error['error']}}</strong>
+					</div>
+					<div class="form-footer">
+						<button type="submit" class="btn btn-primary btn-block" (click)="login(myForm.value)">Log In</button>
+					</div>
+					<!-- <div class="checkbox">
+						<label>
+							<input type="checkbox"> Remember my ID
+						</label>
+					</div> -->
+					<!-- <label class="check_l">Remember my ID</label> -->
+				</div>
+
+				<!-- <div class="btns_area">
+					<div class="left">
+						Forgotten your <a class="font_blue" routerLink="/login/findId">ID</a> or <a class="font_blue" routerLink="/login/findPw">Password</a>?
+					</div>
+					<div class="right">
+						<a class="font_blue" routerLink="/join">Create an account</a>
+					</div>
+				</div> -->
+				
+			</form>
+		</div>
+	</div>
+</div>

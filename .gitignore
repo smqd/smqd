@@ -16,6 +16,7 @@ dist/
 var/
 RUNNING_PID
 src/main/resources/VERSION.NFO
+src/main/resources/*
 **/node_modules/
 /scripts/ssl/mqttclient.*
 /scripts/ssl/mqttserver.*

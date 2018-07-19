@@ -1,0 +1,179 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Overview</h2>
+    </div>
+  </div>
+
+  <!-- Broker -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Broker</h4>
+    </div>
+    <!--
+    <div class="col-lg-3">
+      <div class="widget style1 white-bg">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <i class="fa fa-trophy fa-5x"></i>
+          </div>
+          <div class="col-xs-8 text-right">
+            <span> System Name </span>
+            <h2 class="font-bold">$ 4,232</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+    <div class="col-lg-3">
+      <div class="widget style1 white-bg">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <i class="fa fa-trophy fa-5x"></i>
+          </div>
+          <div class="col-xs-8 text-right">
+            <span> Version </span>
+            <h3 class="font-bold">{{version?.code == 0 ? version?.result?.version : ''}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-lg-3">
+      <div class="widget style1 white-bg">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <i class="fa fa-trophy fa-5x"></i>
+          </div>
+          <div class="col-xs-8 text-right">
+            <span> Uptime </span>
+            <h2 class="font-bold">$ 4,232</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="widget style1 white-bg">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <i class="fa fa-trophy fa-5x"></i>
+          </div>
+          <div class="col-xs-8 text-right">
+            <span> System Time </span>
+            <h2 class="font-bold">$ 4,232</h2>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+<!-- Nodes(1)-->
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Nodes(1)</h4>
+    </div>
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <!-- <div class="ibox-title">
+            <h5>Basic Table</h5>
+
+            <div ibox-tools></div>
+        </div> -->
+        <div class="ibox-content">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Data Center</th>
+                <th>Address</th>
+                <th>API Address</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let node of nodes?.result">
+                <td>{{node.nodeName}}</td>
+                <td>{{node.dataCenter}}</td>
+                <td>{{node.address}}</td>
+                <td>{{node.api.address}}</td>
+                <td>{{node.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metrics-->
+  <div class="row">
+    <div class="col-lg-12">
+        <h4>Metrics</h4>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">  
+          <table class="table">
+            <thead>
+              <tr>
+                <th>The Core-Mqtt Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="metricsMqtt">
+              <tr *ngFor="let key of metricsMqtt | keys">
+                <td>{{key}}</td>
+                <td>{{metricsMqtt[key]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">  
+          <table class="table">
+            <thead>
+              <tr>
+                <th>The Jvm Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="metricsJvm">
+              <tr *ngFor="let key of metricsJvm | keys">
+                <td>{{key}}</td>
+                <td>{{metricsJvm[key]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">  
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>The Bytes Data</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let key of metricsBytes | keys">
+                      <td>{{key}}</td>
+                      <td>{{metricsBytes[key]}}</td>
+                    </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    -->
+  </div>
+
+</div>

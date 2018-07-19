@@ -1,0 +1,27 @@
+<!-- <div class="hr-line-dashed"></div> <hr> -->
+<!-- <div class="col-lg-12">
+  <h5>{{section.title}}</h5>
+</div> -->
+
+<!-- section rows, columns backup -->
+<div class="col-lg-12 row" *ngFor="let row of section.rows">
+  <div *ngIf="!row.type || (row.type && row.type != 'growable')">
+    <div class="col-lg-11 row" >
+      <div class="col-lg-4" *ngFor="let column of row.columns">
+        <app-input [column]="column"></app-input>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="row.type && row.type == 'growable'">
+    <div class="col-lg-11 row" >
+      <div class="col-lg-4" *ngFor="let column of row.columns">
+        <app-input [column]="column"></app-input>
+      </div>
+    </div>
+    <div class="btn-group-sm">
+      <button type="button" class="btn btn-sm dark-bg" (click)="delete(row)"><i class="fa fa-trash"></i></button>
+      <button type="button" class="btn btn-sm dark-bg" (click)="add()"><i class="fa fa-plus"></i></button>
+    </div>
+  </div>
+</div>

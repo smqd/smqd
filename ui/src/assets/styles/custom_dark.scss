@@ -1,0 +1,148 @@
+body {
+  background-color: #1d1e24;
+}
+
+#page-wrapper {
+  background-color: #141519;
+}
+
+.dark-bg {
+  background-color: #232429;
+  border: 1px solid #313437;
+  color: #888;
+}
+
+hr {
+  border-top: 1px solid #313437;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #232429;
+  opacity: 0.3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #232429;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #232429;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #232429;
+  opacity: 1;
+}
+
+/** top navigation **/
+.navbar-fixed-top, .navbar-static-top{
+  background-color: #1d1e24 !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #313437 !important;
+}
+.navbar-right .navbar-form-custom {
+  float: none;
+}
+/** end top navigation **/
+
+/** left navigation **/
+ul.nav-second-level {
+  background-color: #1d1e24 !important;
+}
+.nav .bar-title {
+  z-index: 1003;
+  padding-left: 40px;
+  height: 61px;
+  line-height: 61px;
+  // width: 220px;
+  border-bottom: 1px solid #313437;
+}
+.bar-title img {
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.nav > li > div {
+  color: #a7b1c2;
+  font-weight: 600;
+  padding: 14px 20px 14px 25px;
+}
+.nav > li > div i {
+  margin-right: 6px;
+}
+/** end left navigation **/
+
+/* input check */
+.check_l {margin-bottom:0;font-weight:normal;vertical-align:middle;cursor:pointer;}
+.check_l:before {content:'';display:inline-block;width:18px;height:18px;margin-right:4px;border:1px solid #dcdcdc;border-radius:2px;background:#fff;vertical-align:middle;}
+.check_l.active:before {background-image:url('/assets/img/btn/check.png');background-position:center center;background-repeat:no-repeat;}
+.check_l2 {margin-bottom:0;font-weight:normal;vertical-align:middle;cursor:pointer;}
+.check_l2:before {content:'';display:inline-block;width:24px;height:24px;margin-right:4px;border:1px solid #dcdcdc;border-radius:3px;background:#fff url('/assets/img/btn/check2.png') center center no-repeat;vertical-align:middle;}
+.check_l2.active:before {border-color:transparent;background-color:#246efa;background-image:url('/assets/img/btn/check2_active.png');}
+@media (min-width: 768px) {
+	.check_l:before,
+	.check_l2:before {margin-right:8px;}
+}
+
+/* paginataion */
+.pagination_container {padding-top:30px;text-align:center;}
+.pagination > li > a, .pagination > li > span {
+  background-color: #232429;
+  border: 1px solid #313437;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #232429;
+  border-color: #313437;
+}
+
+/* begin widget */
+.widget {
+  background-color: #232429 !important;
+  border: 1px solid transparent;
+}
+/* end widget */
+
+/* begin table */
+.ibox-title, .ibox-content, .ibox-footer {
+  background-color: #232429 !important;
+  border-color: #313437 !important;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 1px solid #313437;
+}
+.table > thead > tr > th {
+  border-bottom: 1px solid #313437;
+}
+.table .table {
+  background-color: #232429;
+  margin-bottom: 0px;
+  border-top: 0px;
+}
+.table .table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 0px;
+  padding: 0px 3px 3px 3px;
+}
+/* end table */
+
+/* begin plugin */
+.btn-group-sm .btn-sm {
+  margin-top: 25px;
+}
+/* end plugin */
+
+/* begin login */
+.invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+/* end login */
