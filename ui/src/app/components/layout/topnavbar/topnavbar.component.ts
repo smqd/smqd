@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { smoothlyMenu } from '../../../app.helpers';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 
 declare var jQuery:any;
 @Component({

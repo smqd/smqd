@@ -12,8 +12,8 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   myForm: FormGroup;
-  // user: FormControl;
-  // password: FormControl;
+  user: FormControl;
+  password: FormControl;
   
   error: object;
 
@@ -22,8 +22,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      'user': [null, [Validators.required, Validators.minLength(5)]],
-      'password': [null, [Validators.required, Validators.minLength(5)]]
+      // 'user': [null, [Validators.required, Validators.minLength(5)]],
+      // 'password': [null, [Validators.required, Validators.minLength(5)]]
+      'user': [null],
+      'password': [null]
     });
   }
 

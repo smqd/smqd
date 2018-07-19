@@ -57,7 +57,11 @@ ul.nav-second-level {
   // width: 220px;
   border-bottom: 1px solid #313437;
 }
-
+.bar-title img {
+  width: 60px;
+  height: 60px;
+  float: left;
+}
 .nav > li > div {
   color: #a7b1c2;
   font-weight: 600;

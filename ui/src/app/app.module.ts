@@ -25,12 +25,18 @@ import { RouteService } from './services/route.service';
 import { PaginationModule } from 'ngx-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
+import { UserComponent } from './components/user/user.component';
+import { AddUserComponent } from './components/user/add-user/add-user.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent,
+    AddUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

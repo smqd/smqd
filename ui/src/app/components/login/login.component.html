@@ -2,7 +2,8 @@
 	<div class="container">
 		
 		<div class="login_field">
-			<h1 class="logo"><span class="sr-only">T2X</span></h1>
+			<img alt="t2x" class="logo" src="assets/smqd/common/login_logo.png">
+			<!-- <h1 class="logo"><span class="sr-only">T2X</span></h1> -->
 
 			<form [formGroup]="myForm" novalidate>
 				<div class="inputs">
@@ -13,7 +14,7 @@
 							<strong>{{error['error']}}</strong>
 					</div>
 					<div class="form-footer">
-						<button type="submit" class="btn btn-primary btn-block" [disabled]="myForm.invalid" (click)="login(myForm.value)">Log In</button>
+						<button type="submit" class="btn btn-primary btn-block" (click)="login(myForm.value)">Log In</button>
 					</div>
 					<!-- <div class="checkbox">
 						<label>
