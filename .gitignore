@@ -29,6 +29,8 @@ package-lock.json
 src/main/resources/smqd-version.conf
 plugins/*.jar
 
+passwd
+
 # macOS
 .DS_Store
 Thumbs.db
