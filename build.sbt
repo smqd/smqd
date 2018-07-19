@@ -17,7 +17,10 @@ val smqd = project.in(file(".")).enablePlugins(
   publishArtifact := false
 ).settings(
   libraryDependencies ++= Seq (
-    "com.thing2x" %% "smqd-core" % smqdVersion
+    if (smqdVersion.endsWith("-SNAPSHOT"))
+      "com.thing2x" %% "smqd-core" % smqdVersion changing()
+    else
+      "com.thing2x" %% "smqd-core" % smqdVersion
   ),
   resolvers += Resolver.sonatypeRepo("public")
 ).settings(
