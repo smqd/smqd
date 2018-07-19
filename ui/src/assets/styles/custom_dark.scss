@@ -28,6 +28,11 @@ hr {
   color: #232429;
 }
 
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #232429;
+  opacity: 1;
+}
+
 /** top navigation **/
 .navbar-fixed-top, .navbar-static-top{
   background-color: #1d1e24 !important;

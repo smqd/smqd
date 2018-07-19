@@ -6,7 +6,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { BaseService } from './base.service';
 import { Login } from '../models/login';
-import { throwError } from '../../../node_modules/rxjs';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

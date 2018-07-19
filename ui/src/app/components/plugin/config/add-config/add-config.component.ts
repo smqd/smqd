@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PluginService } from '../../../../services/plugin.service';
-import { ConfigResult, ConfigSchema, Section, Column } from '../../../../models/plugin';
+import { ConfigSchema, Section, Column, InstanceConfig, PluginConfigResult } from '../../../../models/plugin';
 import { KeystringPipe } from '../../../../constants/keystring.pipe';
 import { KeyobjectPipe } from '../../../../constants/keyobject.pipe';
 
@@ -16,11 +16,13 @@ export class AddConfigComponent implements OnInit {
 
   pluginName: string;
   instanceName: string;
-  pluginConfig: ConfigResult;
+  pluginConfig: PluginConfigResult;
   configSchema: ConfigSchema;
-  defaultConfig: ConfigResult;
-  newConfig : Object;
+  defaultConfig: InstanceConfig;
+  newConfig : InstanceConfig = new InstanceConfig({'auto-start': false, config:{}});
   instanceConfig: Column[];
+
+  autoStart: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private pluginService: PluginService, private location: Location) { }
 
@@ -44,17 +46,14 @@ export class AddConfigComponent implements OnInit {
           this.configSchema = new ConfigSchema(this.pluginConfig.result['config-schema']);
         }
         if (this.pluginConfig.result['default-config']) {
-          this.newConfig = Object.assign(this.pluginConfig.result['default-config']);
-          //this.defaultConfig = Object.assign(this.pluginConfig.result['default-config']);
+          this.newConfig.config = Object.assign(this.pluginConfig.result['default-config']);
           this.defaultConfig = new KeystringPipe().transform(this.pluginConfig.result['default-config']);
-          console.log('this.defaultConfig = ', this.defaultConfig);
         }
 
         if (this.configSchema.sections) {
           this.configSchema.sections.forEach((section) => {
             section.rows.forEach((row) => {
               row.columns.forEach((column) => {
-                //console.log('section.row.column', column, this.defaultConfig[column.key]);
                 if (this.defaultConfig[column.key]) {
                   column.value = this.defaultConfig[column.key];
                 }
@@ -86,7 +85,13 @@ export class AddConfigComponent implements OnInit {
       alert('instance name is required');
       return;
     }
-    
+      // growable array 를 초기화 시킨다. 
+      for (let key in this.newConfig.config) {
+        if (Array.isArray(this.newConfig.config[key])) {
+          this.newConfig.config[key]=[];
+        }
+      }
+
     if (this.configSchema.sections) {
       this.configSchema.sections.forEach((section) => {
         section.rows.forEach((row) => {
@@ -103,23 +108,23 @@ export class AddConfigComponent implements OnInit {
             });
             
             if (Object.keys(obj).length > 0) {
-              this.newConfig[keyList[0]].push(obj);
+              this.newConfig.config[keyList[0]].push(obj);
             }
           } else {
             row.columns.forEach((column) => {
-              new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+              new KeyobjectPipe().transform(this.newConfig.config, column.key, column.value);
             });
           }
         })
       });
     } else {
       this.instanceConfig.forEach((column) => {
-        new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+        new KeyobjectPipe().transform(this.newConfig.config, column.key, column.value);
       });
     }
 
-    //console.log('newConfig = ', this.newConfig);
-    this.pluginService.createInstance(this.pluginName, this.instanceName, {'auto-start': false, config: this.newConfig}).subscribe(
+    console.log('newConfig = ', this.newConfig);
+    this.pluginService.createInstance(this.pluginName, this.instanceName, this.newConfig).subscribe(
       result => {
         if (result['code']) {
           alert(result['error']);

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { PluginsResult, PluginResult, InstanceResult, ConfigResult } from '../models/plugin';
+import { PluginsResult, PluginResult, InstanceResult, InstanceConfigResult, PluginConfigResult } from '../models/plugin';
 
 @Injectable({
   providedIn: 'root'
@@ -60,25 +60,25 @@ export class PluginService extends BaseService{
   }
 
   /* config */
-  getPluginConfig(pluginName: string): Observable<ConfigResult> {
+  getPluginConfig(pluginName: string): Observable<PluginConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/config`;
-    return this.httpClient.get<ConfigResult>(url).pipe(
+    return this.httpClient.get<PluginConfigResult>(url).pipe(
       //tap(_ => console.log(`fetched config`)),
-      catchError(this.handleError<PluginsResult>(`getConfig`))
+      catchError(this.handleError<PluginConfigResult>(`getConfig`))
     );
   }
 
-  getInstanceConfig(pluginName: string, instanceName: string): Observable<ConfigResult> {
+  getInstanceConfig(pluginName: string, instanceName: string): Observable<InstanceConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/config`;
-    return this.httpClient.get<ConfigResult>(url).pipe(
+    return this.httpClient.get<InstanceConfigResult>(url).pipe(
       //tap(_ => console.log(`fetched config`)),
-      catchError(this.handleError<PluginsResult>(`getConfig`))
+      catchError(this.handleError<InstanceConfigResult>(`getConfig`))
     );
   }
 
-  modifyInstanceConfig(pluginName: string, instanceName: string, config:Object): Observable<Object | InstanceResult> {
+  modifyInstanceConfig(pluginName: string, instanceName: string, config:Object): Observable<Object | InstanceConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}`;
-    return this.httpClient.patch<InstanceResult>(url, config).pipe(
+    return this.httpClient.patch<InstanceConfigResult>(url, config).pipe(
       catchError(this.handleError('modifyInstanceConfig'))
     );
   }

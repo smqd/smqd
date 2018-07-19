@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PluginService } from '../../../services/plugin.service';
-import { ConfigResult, Column, ConfigSchema, Section } from '../../../models/plugin';
+import { PluginConfigResult, Column, ConfigSchema, Section, InstanceConfigResult, InstanceConfig } from '../../../models/plugin';
 import { KeystringPipe } from '../../../constants/keystring.pipe';
 import { KeyobjectPipe } from '../../../constants/keyobject.pipe';
 
@@ -15,11 +15,11 @@ export class ConfigComponent implements OnInit {
 
   pluginName: string;
   instanceName: string;
-  pluginConfig: ConfigResult;
+
+  pluginConfig: PluginConfigResult;
   configSchema: ConfigSchema;
-  //orgConfig: ConfigResult;
-  viewConfig: ConfigResult;
-  newConfig: ConfigResult;
+  viewConfig: InstanceConfig;
+  newConfig: InstanceConfig;
   instanceConfig: Column[];
 
   constructor(private activatedRoute: ActivatedRoute, private pluginService: PluginService, private location: Location) { }
@@ -56,15 +56,13 @@ export class ConfigComponent implements OnInit {
           return;
         }
 
-        this.newConfig = config['result']['config'];
-        //this.orgConfig = Object.assign({}, config['result']['config']);
-        this.viewConfig = new KeystringPipe().transform(config['result']['config']);
+        this.newConfig = config['result'];
+        console.log('this.newConfig =', this.newConfig);
+        this.viewConfig = new KeystringPipe().transform(this.newConfig.config);
         var growableName = [];
-        for (let key in config['result']['config']) {
-          console.log('key = ', key, typeof config['result']['config'][key]);
-          if (Array.isArray(config['result']['config'][key])) {
-            growableName.push({key: key, length: config['result']['config'][key].length});
-            console.log('growableName = ', growableName, config['result']['config'][key].length);
+        for (let key in this.newConfig.config) {
+          if (Array.isArray(this.newConfig.config[key])) {
+            growableName.push({key: key, length: this.newConfig.config[key].length});
           }
         }
         
@@ -73,7 +71,6 @@ export class ConfigComponent implements OnInit {
             section.rows.forEach((row) => {
               if (row.type && row.type == 'growable') {
                 for(let i = 0; i < growableName.length; i++) {
-                  console.log('growableName.key = ', growableName[i].key, row.columns[0].key);
                   if (row.columns[0].key.startsWith(growableName[i].key)) {
                     
                     for (let j=section.rows.length; j < growableName[i].length;j++) {
@@ -88,17 +85,14 @@ export class ConfigComponent implements OnInit {
             for(let i = 0; i < section.rows.length; i++) {
               var row = section.rows[i];
               if (row.type && row.type == 'growable') {
-                console.log('section.rows = ', section.rows);
                   row.columns.forEach((column) => {
                     const key = column.key.replace('.#.', '.'+i+'.');
-                    console.log('column = ', column.key, key);
                     if (this.viewConfig[key]) {
                       column.value = this.viewConfig[key];
                     }
                   });
               } else {
                 row.columns.forEach((column) => {
-                  //console.log('section.row.column', column, this.defaultConfig[column.key]);
                   if (this.viewConfig[column.key]) {
                     column.value = this.viewConfig[column.key];
                   }
@@ -112,7 +106,6 @@ export class ConfigComponent implements OnInit {
           for (let key in this.viewConfig) {
             this.instanceConfig.push({key: key, value:this.viewConfig[key], type:'', title:''});
           }
-          console.log('this.instanceConfig = ', this.instanceConfig);
         }
       }
     );
@@ -120,9 +113,9 @@ export class ConfigComponent implements OnInit {
 
   changeInstanceConfig() {
     // growable array 를 초기화 시킨다. 
-    for (let key in this.newConfig) {
-      if (Array.isArray(this.newConfig[key])) {
-        this.newConfig[key]=[];
+    for (let key in this.newConfig.config) {
+      if (Array.isArray(this.newConfig.config[key])) {
+        this.newConfig.config[key]=[];
       }
     }
 
@@ -143,18 +136,18 @@ export class ConfigComponent implements OnInit {
               });
               
               if (Object.keys(obj).length > 0) {
-                this.newConfig[keyList[0]].push(obj);
+                this.newConfig.config[keyList[0]].push(obj);
               }
             } else {
               row.columns.forEach((column) => {
-                new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+                new KeyobjectPipe().transform(this.newConfig.config, column.key, column.value);
               });
             }
           })
         });
       } else {
         this.instanceConfig.forEach((column) => {
-          new KeyobjectPipe().transform(this.newConfig, column.key, column.value);
+          new KeyobjectPipe().transform(this.newConfig.config, column.key, column.value);
         });
       }
     } else {
@@ -163,7 +156,7 @@ export class ConfigComponent implements OnInit {
       }
     }
 
-    //console.log('modifyInstanceConfig = ', this.newConfig);
+    console.log('modifyInstanceConfig = ', this.newConfig);
     this.pluginService.modifyInstanceConfig(this.pluginName, this.instanceName, this.newConfig).subscribe(
       result => {
         if (result['code']) {

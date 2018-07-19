@@ -16,6 +16,16 @@
                 <label>Instance Name</label>
                 <input type="text" class="form-control b-r-md dark-bg" [(ngModel)]="instanceName">
               </div>
+              <div class="form-group col-lg-4">
+                <label>Auto Start</label>
+                
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="newConfig['auto-start']"> true
+                  </label>
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>

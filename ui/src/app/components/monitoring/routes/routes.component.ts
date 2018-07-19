@@ -10,7 +10,7 @@ import { RouteService } from '../../../services/route.service';
 export class RoutesComponent implements OnInit {
 
   routes: Routes;
-  condition = {page_size:10, curr_page: 1}
+  condition = {page_size:10, curr_page: 1};
 
   constructor(private routeService: RouteService) { }
 

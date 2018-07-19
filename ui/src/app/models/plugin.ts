@@ -1,4 +1,4 @@
-import { Base, Deserializable } from "./base";
+import { Base } from "./base";
 
 class Instance {
   plugin: string;
@@ -6,6 +6,15 @@ class Instance {
   name: string;
   'auto-start': boolean;
   status: string;
+}
+
+export class InstanceResult extends Base {
+  constructor(obj) {
+    super();
+    obj && Object.assign(this, obj);
+  }
+
+  result: Instance;
 }
 
 class Plugin {
@@ -35,24 +44,35 @@ export class PluginResult extends Base {
   result: Plugin;
 }
 
-export class InstanceResult extends Base {
-  constructor(obj) {
-    super();
-    obj && Object.assign(this, obj);
-  }
 
-  result: Instance;
-}
-
-export class ConfigResult extends Base {
+export class PluginConfigResult extends Base {
   constructor(obj) {
     super();
     obj && Object.assign(this, obj);
   }
   
   result: {
-    
+    'defult-config': {},
+    'config-schema': {}
   }
+}
+
+export class InstanceConfig {
+  constructor(obj) {
+    obj && Object.assign(this, obj);
+  }
+
+  'auto-start': boolean;
+  config: {};
+}
+
+export class InstanceConfigResult extends Base {
+  constructor(obj) {
+    super();
+    obj && Object.assign(this, obj);
+  }
+  
+  result: InstanceConfig
 }
 
 export class Column {
@@ -77,12 +97,3 @@ export class ConfigSchema {
 
   sections: Section[];
 }
-
-// export class Config implements Deserializable{
-//   instanceName: string;
-
-//   deserialize(input: any) {
-//     Object.assign(this, input);
-//     return this;
-//   }
-// }

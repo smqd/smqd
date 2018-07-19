@@ -30,8 +30,8 @@
                   <td>{{package.version}}</td>
                   <td>{{package.description}}</td>
                   <td>{{package.provider}}</td>
-                  <td *ngIf="!package.installable || package.installable && package.installed"><button type="button" class="b-r-md dark-bg" (click)="reload(package.name)">Reload</button></td>
-                  <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md dark-bg" (click)="install(package.name)">Download</button></td>
+                  <td *ngIf="!package.installable || package.installable && package.installed"><button type="button" class="b-r-md dark-bg" (click)="reload(package.name)">ReInstall</button></td>
+                  <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md dark-bg" (click)="install(package.name)">Install</button></td>
                 </tr>
                 <tr *ngIf="!packages?.result?.total_num">
                   <td colspan="5">No Data</td>
