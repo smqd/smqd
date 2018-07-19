@@ -14,6 +14,7 @@ import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { AuthGuard } from './services/auth.guard';
+import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 
 const routes: Routes = [
   // Main redirect
@@ -48,7 +49,8 @@ const routes: Routes = [
       {path: 'add', component: AddUserComponent, canActivate:[AuthGuard]},
       {path: ':username', component: EditUserComponent, canActivate:[AuthGuard]}
     ]
-  }
+  },
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({
