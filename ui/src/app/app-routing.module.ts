@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   // Main redirect
@@ -25,27 +26,27 @@ const routes: Routes = [
   {
     path: 'monitoring', component: BasicLayoutComponent,
     children: [
-      {path: 'dashboard', component: DashboardComponent},
-      {path: 'clients', component: ClientsComponent},
-      {path: 'routes', component: RoutesComponent},
-      {path: 'subscriptions', component: SubscriptionsComponent}
+      {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+      {path: 'clients', component: ClientsComponent, canActivate:[AuthGuard]},
+      {path: 'routes', component: RoutesComponent, canActivate:[AuthGuard]},
+      {path: 'subscriptions', component: SubscriptionsComponent, canActivate:[AuthGuard]}
     ]
   },
   {
     path: 'plugin', component: BasicLayoutComponent,
     children: [
-      {path: 'packages', component: PackagesComponent},
-      {path: 'plugins', component: PluginsComponent},
-      {path: ':plugin/:instance/config', component: ConfigComponent, pathMatch: 'full'},
-      {path: ':plugin/instance/add', component: AddConfigComponent}
+      {path: 'packages', component: PackagesComponent, canActivate:[AuthGuard]},
+      {path: 'plugins', component: PluginsComponent, canActivate:[AuthGuard]},
+      {path: ':plugin/:instance/config', component: ConfigComponent, canActivate:[AuthGuard], pathMatch: 'full'},
+      {path: ':plugin/instance/add', component: AddConfigComponent, canActivate:[AuthGuard]}
     ]
   },
   {
     path: 'user', component: BasicLayoutComponent,
     children: [
-      {path: 'users', component: UserComponent},
-      {path: 'add', component: AddUserComponent},
-      {path: ':username', component: EditUserComponent}
+      {path: 'users', component: UserComponent, canActivate:[AuthGuard]},
+      {path: 'add', component: AddUserComponent, canActivate:[AuthGuard]},
+      {path: ':username', component: EditUserComponent, canActivate:[AuthGuard]}
     ]
   }
 ];

@@ -28,6 +28,7 @@ import { AuthService } from './services/auth.service';
 import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { AuthGuard } from './services/auth.guard';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { EditUserComponent } from './components/user/edit-user/edit-user.compone
     PluginModule
   ],
   providers: [
+    AuthGuard,
     httpInterceptorProviders,
     BaseService,
     AuthService,
