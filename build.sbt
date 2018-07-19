@@ -47,8 +47,7 @@ val smqd = project.in(file(".")).enablePlugins(
 ).settings(
   (stage in Universal) := ((stage in Universal) dependsOn npmBuildTask).value,
   (dist in Universal)  := ((dist in Universal) dependsOn npmBuildTask).value,
-  (compile  in Compile):= ((compile in Compile) dependsOn npmBuildTask).value,
-  (clean in ThisBuild) := ((clean in ThisBuild) dependsOn npmCleanTask).value
+  (compile  in Compile):= ((compile in Compile) dependsOn npmBuildTask).value
 ).settings(
   // License
   organizationName := "UANGEL",
