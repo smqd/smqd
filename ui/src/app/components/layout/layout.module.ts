@@ -6,6 +6,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { TopnavbarComponent } from './topnavbar/topnavbar.component';
 import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
 import { FooterComponent } from './footer/footer.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FooterComponent } from './footer/footer.component';
     NavigationComponent,
     TopnavbarComponent,
     FooterComponent,
-    BasicLayoutComponent
+    BasicLayoutComponent,
+    NotFoundComponent
   ],
   exports: [
     BasicLayoutComponent,
