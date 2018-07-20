@@ -69,9 +69,12 @@ val smqd = project.in(file(".")).enablePlugins(
   outputStrategy := Some(StdoutOutput)
 ).settings(
   // Packaging Settings
-  mappings in Universal ++= directory(sourceDir = "bin").filterNot{ case (_, fname) => Set("bin/.gitkeep").contains(fname) },
-  mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf", "conf/plugins/.gitkeep").contains(fname) },
-  mappings in Universal ++= directory(sourceDir = "plugins").filterNot{ case (_, fname) => Set("plugins/.gitkeep").contains(fname) },
+  mappings in Universal ++= directory(sourceDir = "bin"),
+  mappings in Universal ++= directory(sourceDir = "conf"),
+  mappings in Universal ++= directory(sourceDir = "plugins"),
+  universalArchiveOptions in (Universal, packageZipTarball) :=
+    (Seq("--exclude", ".gitkeep", "--exclude", "*-dev.*", "--exclude", "passwd") ++
+      (universalArchiveOptions in (Universal, packageZipTarball)).value),
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-v$smqdVersion",
   executableScriptName := "smqd",
