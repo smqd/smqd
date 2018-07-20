@@ -23,15 +23,19 @@ export class AddUserComponent implements OnInit {
   }
 
   createUser(credential) {
+    if (!credential.username) {
+      alert('user name is required.');
+      return;
+    }
+    if (!credential.password) {
+      alert('password is required.');
+      return;
+    }
     this.userService.createUser(credential).subscribe(result => {
       console.log('result', result);
       if (!result) {
         return;
       }
-      // data setting
-      // (<FormControl>this.myForm.controls['username']).setValue('John', {onlySelf: true});
-      // (<FormGroup>this.myForm).setValue(people, { onlySelf: true });
-      //this.eventService.dispatchEvent('login:success');
       this.router.navigateByUrl('/user/users');
     }, 
     error => {

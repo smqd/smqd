@@ -40,8 +40,16 @@ hr {
 .border-bottom {
   border-bottom: 1px solid #313437 !important;
 }
-.navbar-right .navbar-form-custom {
-  float: none;
+.navbar.navbar-static-top {
+  padding: 0;
+  width: 100%;
+  align-items: inherit;
+}
+
+@media (max-width: 768px) {
+  .navbar-right {
+      float: right !important;
+  }
 }
 /** end top navigation **/
 
@@ -49,18 +57,33 @@ hr {
 ul.nav-second-level {
   background-color: #1d1e24 !important;
 }
-.nav .bar-title {
-  z-index: 1003;
-  padding-left: 40px;
-  height: 61px;
-  line-height: 61px;
-  // width: 220px;
-  border-bottom: 1px solid #313437;
+.nav-header {
+  padding: 0 !important;
 }
-.bar-title img {
+.nav .profile-element {
+  z-index: 1003;
+  padding-top: 0px;
+  padding-left: 20px;
+  height: 62px;
+  line-height: 62px;
+  width: 220px;
+  border-bottom: 1px solid #313437;
+  background-color: #1d1e24 !important;
+}
+.profile-element img {
+  width: 180px;
+  height: 60px;
+  //float: left;
+}
+.logo-element {
+  padding: 0 !important;
+  border-bottom: 1px solid #313437;
+  background-color: #1d1e24 !important;
+}
+.logo-element img {
   width: 60px;
   height: 60px;
-  float: left;
+//   float: left;
 }
 .nav > li > div {
   color: #a7b1c2;
@@ -69,6 +92,12 @@ ul.nav-second-level {
 }
 .nav > li > div i {
   margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  .body-small.mini-navbar .navbar-static-side {
+      display: block;
+  }
 }
 /** end left navigation **/
 

@@ -4,6 +4,8 @@ export class Subscriber {
   topic: string;
   qos: number;
   actor: string;
+  clientId: string;
+  channelId: string;
 }
 export class Subscription {
   topic: string;
