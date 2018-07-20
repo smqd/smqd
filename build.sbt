@@ -5,7 +5,7 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val smqdVersion = "0.4.0-SNAPSHOT"
+val smqdVersion = "0.4.0"
 
 lazy val npmBuildTask = taskKey[Unit]("build ui")
 npmBuildTask := {
