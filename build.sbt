@@ -70,7 +70,7 @@ val smqd = project.in(file(".")).enablePlugins(
 ).settings(
   // Packaging Settings
   mappings in Universal ++= directory(sourceDir = "bin").filterNot{ case (_, fname) => Set("bin/.gitkeep").contains(fname) },
-  mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
+  mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf", "conf/plugins/.gitkeep").contains(fname) },
   mappings in Universal ++= directory(sourceDir = "plugins").filterNot{ case (_, fname) => Set("plugins/.gitkeep").contains(fname) },
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-v$smqdVersion",
