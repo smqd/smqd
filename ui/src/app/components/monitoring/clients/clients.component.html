@@ -15,18 +15,37 @@
         </div> -->
         <div class="ibox-content">
           <table class="table">
+            <colgroup>
+              <col style="width:30%">
+              <col style="width:30%">
+              <col style="width:40%">
+            </colgroup>
             <thead>
               <tr>
-                <th>Topic</th>
-                <th>Qos</th>
-                <th>Actor</th>
+                <th>ClientId</th>
+                <th>ChannelId</th>
+                <th>Subscriptions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let client of clients?.result?.objects">
-                <td>{{client.topic}}</td>
-                <td>{{client.qos}}</td>
-                <td>{{client.actor}}</td>
+                <td>{{client.clientId}}</td>
+                <td>{{client.channelId}}</td>
+                <td><table class="table">
+                  <colgroup>
+                    <col style="width:40%">
+                    <col style="width:20%">
+                    <col style="width:40%">
+                  </colgroup>
+                  <tbody>
+                    <tr *ngFor="let subscriber of client.subscriptions">
+                      <td>{{subscriber.topic}}</td>
+                      <td>{{subscriber.qos}}</td>
+                      <td>{{subscriber.actor}}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+                </td>
               </tr>
               <tr *ngIf="!clients?.result?.total_num">
                 <td colspan="3">No Data</td>

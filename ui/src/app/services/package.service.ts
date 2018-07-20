@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { Packages, PackageExact } from '../models/package';
+import { Packages, PackageResult } from '../models/package';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,10 @@ export class PackageService extends BaseService{
     );
   }
 
-  getPackage(condition): Observable<PackageExact> {
-    return this.httpClient.get<PackageExact>(this.packagesUrl, {params: condition}).pipe(
+  getPackage(condition): Observable<PackageResult> {
+    return this.httpClient.get<PackageResult>(this.packagesUrl, {params: condition}).pipe(
       tap(_ => console.log(`fetched plugin`)),
-      catchError(this.handleError<PackageExact>(`getPlugin`))
+      catchError(this.handleError<PackageResult>(`getPlugin`))
     );
   }
 

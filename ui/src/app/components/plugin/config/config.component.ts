@@ -104,7 +104,7 @@ export class ConfigComponent implements OnInit {
           // configSchema가 없을 경우에는 defaultConfig 만 화면에 표시한다.
           this.instanceConfig = [];
           for (let key in this.viewConfig) {
-            this.instanceConfig.push({key: key, value:this.viewConfig[key], type:'', title:''});
+            this.instanceConfig.push({key: key, value: this.viewConfig[key], type: null, title: null, placeHolder: null});
           }
         }
       }

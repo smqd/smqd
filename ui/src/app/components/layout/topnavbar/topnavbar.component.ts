@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { smoothlyMenu } from '../../../app.helpers';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NodesResult } from '../../../models/dashboard';
 
 declare var jQuery:any;
 @Component({
@@ -11,15 +12,18 @@ declare var jQuery:any;
 })
 export class TopnavbarComponent implements OnInit {
 
+  nodes : NodesResult;
+
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+
   }
 
-  // toggleNavigation(): void {
-  //   jQuery("body").toggleClass("mini-navbar");
-  //   smoothlyMenu();
-  // }
+  toggleNavigation(): void {
+    jQuery("body").toggleClass("mini-navbar");
+    smoothlyMenu();
+  }
 
   logout() {
     this.authService.removeAuthorizationToken();
