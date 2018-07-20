@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getVersion();
     this.getClientCount();
+    this.getCpu();
     this.getJvmThreadCount();
 
     this.getNodes();
@@ -60,7 +61,18 @@ export class DashboardComponent implements OnInit {
         this.clientCount = clients.result.total_num;
       }
     );
+  }
 
+  getCpu() {
+    this.metricService.getMetric('jvm/cpu').subscribe(
+      metrics => {
+        if (metrics['code']) {
+          return;
+        }
+
+        this.cpu = metrics.result['jvm.cpu']['load'];
+      }
+    );
   }
 
   getJvmThreadCount() {
@@ -70,10 +82,9 @@ export class DashboardComponent implements OnInit {
           return;
         }
 
-        console.log('metrics = ', metrics.result['jvm.thread']);
         this.threadCount = metrics.result['jvm.thread']['count'];
       }
-    )
+    );
   }
 
   getNodes() {
@@ -95,12 +106,7 @@ export class DashboardComponent implements OnInit {
           return;
         }
 
-        console.log('metrics = ', metrics.result['jvm.heap']);
         this.metricsJvm = metrics.result['jvm.heap'];
-        if (this.metricsJvm['used']) {
-          this.cpu = this.metricsJvm['used'];
-          delete this.metricsJvm['used'];
-        }
       }
     )
   }
