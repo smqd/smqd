@@ -16,14 +16,14 @@ export class PackageService extends BaseService{
   }
   getPackages(condition): Observable<Packages> {
     return this.httpClient.get<Packages>(this.packagesUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched plugins`)),
+      //tap(_ => console.log(`fetched plugins`)),
       catchError(this.handleError<Packages>(`getPackages`))
     );
   }
 
   getPackage(condition): Observable<PackageResult> {
     return this.httpClient.get<PackageResult>(this.packagesUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched plugin`)),
+      //tap(_ => console.log(`fetched plugin`)),
       catchError(this.handleError<PackageResult>(`getPlugin`))
     );
   }

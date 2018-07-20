@@ -18,7 +18,7 @@ export class SubscriptionService extends BaseService{
 
   getSubscriptions(condition): Observable<Subscriptions> {
     return this.httpClient.get<Subscriptions>(this.baseUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched subscriptions`)),
+      //tap(_ => console.log(`fetched subscriptions`)),
       catchError(this.handleError<Subscriptions>(`getSubscriptions`))
     );
   }

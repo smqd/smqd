@@ -18,7 +18,7 @@ export class ClientService extends BaseService{
 
   getClients(condition): Observable<Clients> {
     return this.httpClient.get<Clients>(this.clientsUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched clients`)),
+      //tap(_ => console.log(`fetched clients`)),
       catchError(this.handleError<Clients>(`getClients`))
     );
   }

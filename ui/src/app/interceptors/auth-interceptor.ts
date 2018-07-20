@@ -28,13 +28,11 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //return next.handle(req);
     if ((req.url.includes('login') || req.url.includes('refresh')) && req.method === 'POST') {
-      console.log('login or token', req.url);
       if (req.url.includes('refresh')) {
         return next.handle(this.setHeader(req, this.authService.getAccessToken()));
       }
       return next.handle(req);
     }
-    console.log('interceptor...', req.url);
     // Get the auth token from the service.
     const authToken = this.authService.getAccessToken();
     if (authToken != null) {
@@ -50,7 +48,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   refreshToken(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    console.log('401 error call refreshToken', this.refreshTokenInProgress);
     if (!this.refreshTokenInProgress) {
       this.refreshTokenInProgress = true;
       // Reset here so that the following requests wait until the token
@@ -59,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
       return this.authService.refreshToken().pipe(
         switchMap((resp) => { //emit last respones
-          console.log('resp', resp);
+          console.log('token refesh', resp);
           this.tokenSubject.next(resp['result']['access_token']);//setting new token
           this.refreshTokenInProgress = false;
           return next.handle(this.setHeader(req, resp['result']['access_token']));//change token excute next request
@@ -77,7 +74,6 @@ export class AuthInterceptor implements HttpInterceptor {
         filter(token => token != null), //this token is new token
         take(1),
         switchMap(token => { //emit last token
-          console.log('interceptor.token = ', token);
           return next.handle(this.setHeader(req, token));
         })
       );

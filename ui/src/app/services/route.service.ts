@@ -18,7 +18,7 @@ export class RouteService extends BaseService{
 
   getRoutes(condition): Observable<Routes> {
     return this.httpClient.get<Routes>(this.routesUrl, {params: condition}).pipe(
-      tap(_ => console.log(`fetched routes`)),
+      //tap(_ => console.log(`fetched routes`)),
       catchError(this.handleError<Routes>(`getRoutes`))
     );
   }
