@@ -3,7 +3,8 @@ language: scala
 jdk: oraclejdk8
 scala:
 - 2.12.6
-script: sbt -Dwith-ui=true ++$TRAVIS_SCALA_VERION test;
+script: sbt ++$TRAVIS_SCALA_VERION test;
+sbt_args: -Dwith-ui=true
 after_success:
 - |
   if [[ $TRAVIS_PULL_REQUEST == false ]]; then
