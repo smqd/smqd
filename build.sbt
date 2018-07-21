@@ -9,21 +9,18 @@ val smqdVersion = "0.4.1-SNAPSHOT"
 
 lazy val npmBuildTask = taskKey[Unit]("build ui")
 npmBuildTask := {
-  println("Building JavaScript ui ...")
-  val uiDir = new File("./ui")
-  val npmInstall = Process("npm install", uiDir)
-  val npmBuild   = Process("npm run build", uiDir)
-  val res = npmInstall #&& npmBuild !
+  Option(System.getProperty("with-ui")) match {
+    case Some("true") =>
+      println("Building JavaScript ui ...")
+      val uiDir = new File("./ui")
+      val npmInstall = Process("npm install", uiDir)
+      val npmBuild   = Process("npm run build", uiDir)
+      val res = npmInstall #&& npmBuild !
 
-  println(s"Build: '$res'")
-}
-
-lazy val npmCleanTask = taskKey[Unit]("clean ui")
-npmCleanTask := {
-  println("Cleaning JavaScript output")
-  val rmAssets = Process("rm -rf ./src/main/resources/dashboard")
-  val res = rmAssets.!
-  println(s"Clean: $res")
+      println(s"Build: '$res'")
+    case _ =>
+      println("Skip building JavaScript ui ...")
+  }
 }
 
 val smqd = project.in(file(".")).enablePlugins(
@@ -72,6 +69,7 @@ val smqd = project.in(file(".")).enablePlugins(
   mappings in Universal ++= directory(sourceDir = "bin"),
   mappings in Universal ++= directory(sourceDir = "conf"),
   mappings in Universal ++= directory(sourceDir = "plugins"),
+  mappings in Universal ++= directory(target.value / "dashboard"),
   universalArchiveOptions in (Universal, packageZipTarball) :=
     (Seq("--exclude", ".gitkeep", "--exclude", "*-dev.*", "--exclude", "passwd") ++
       (universalArchiveOptions in (Universal, packageZipTarball)).value),

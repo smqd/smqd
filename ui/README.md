@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## smqd ui build
 
-Run  `npm run build ` to build the smqd ui project. The build artifacts will be stored in the `src/main/resources/dashboard/` directory.
+Run  `npm run build ` to build the smqd ui project. The build artifacts will be stored in the `target/dashboard/` directory.

@@ -126,6 +126,16 @@ If you want to place the logback config in a different directory,
 change the value of `-Dlogback.configurationFile` in `smqd-jvm.ini` file.
 For customization of logback.xml, please refer to the official web site of [logback](https://logback.qos.ch).
 
+## For UI Developers
+
+To build the project with ui-compilation together execute `sbt` with `with-ui=true` option.
+
+```bash
+sbt -Dwith-ui=true <sbt command>
+```
+
+- [ui/README.md](ui/README.md)
+
 ## Related Projects
 
 ### smqd core

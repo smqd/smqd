@@ -6,7 +6,7 @@ scala:
 after_success:
 - |
   if [[ $TRAVIS_PULL_REQUEST == false ]]; then
-    sbt ++$TRAVIS_SCALA_VERSION universal:dist;
+    sbt -Dwith-ui=true ++$TRAVIS_SCALA_VERSION universal:dist;
   fi
 deploy:
   provider: releases

@@ -27,8 +27,13 @@ import com.typesafe.scalalogging.StrictLogging
   */
 class DashboardController(name: String, context: HttpServiceContext) extends RestController(name, context) with Directives with StrictLogging {
   private val resourceRegex = """(.+\.[\w]{1,6}$)""".r
+  private def withTrailingSlash(path: String): String = if (path endsWith "/") path else path + '/'
 
-  val routes: Route =
+  private val basedir = context.config.getString("content_base")
+
+  val routes: Route = dashboard ~ doorman
+
+  def dashboard: Route =
     path("dashboard") {
       pathEndOrSingleSlash {
         redirect("/dashboard/index.html", StatusCodes.PermanentRedirect)
@@ -36,8 +41,22 @@ class DashboardController(name: String, context: HttpServiceContext) extends Res
     } ~
     path("dashboard" / Remaining) {
       case path @ resourceRegex(_) =>
-        getFromResource("dashboard/" + path)
+        getFromFile(withTrailingSlash(basedir) + path)
       case _ =>
         redirect("/dashboard/index.html", StatusCodes.PermanentRedirect)
     }
+
+  private val dashboardEntrance: Route = redirect("/dashboard/index.html", StatusCodes.PermanentRedirect)
+
+  def doorman: Route =
+    path("") {
+      dashboardEntrance
+    } ~
+    path("index.html") {
+      dashboardEntrance
+    } ~
+    path("favicon.ico") {
+      getFromFile(withTrailingSlash(basedir)+"favicon.ico")
+    }
+
 }
