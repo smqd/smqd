@@ -1,9 +1,27 @@
 
+import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
 import sbt.Keys._
-import NativePackagerHelper._
 import sbt.StdoutOutput
 
-val smqdVersion = "0.4.0-SNAPSHOT"
+import scala.sys.process._
+
+val smqdVersion = "0.4.1-SNAPSHOT"
+
+lazy val npmBuildTask = taskKey[Unit]("build ui")
+npmBuildTask := {
+  Option(System.getProperty("with-ui")) match {
+    case Some("true") =>
+      println("Building JavaScript ui ...")
+      val uiDir = new File("./ui")
+      val npmInstall = Process("npm install", uiDir)
+      val npmBuild   = Process("npm run build", uiDir)
+      val res = npmInstall #&& npmBuild !
+
+      println(s"Build: '$res'")
+    case _ =>
+      println("Skip building JavaScript ui ...")
+  }
+}
 
 val smqd = project.in(file(".")).enablePlugins(
   JavaAppPackaging, AutomateHeaderPlugin
@@ -17,9 +35,16 @@ val smqd = project.in(file(".")).enablePlugins(
   publishArtifact := false
 ).settings(
   libraryDependencies ++= Seq (
-    "com.thing2x" %% "smqd-core" % smqdVersion
+    if (smqdVersion.endsWith("-SNAPSHOT"))
+      "com.thing2x" %% "smqd-core" % smqdVersion changing()
+    else
+      "com.thing2x" %% "smqd-core" % smqdVersion
   ),
   resolvers += Resolver.sonatypeRepo("public")
+).settings(
+  (stage in Universal) := ((stage in Universal) dependsOn npmBuildTask).value,
+  (dist in Universal)  := ((dist in Universal) dependsOn npmBuildTask).value,
+  (compile  in Compile):= ((compile in Compile) dependsOn npmBuildTask).value
 ).settings(
   // License
   organizationName := "UANGEL",
@@ -41,9 +66,13 @@ val smqd = project.in(file(".")).enablePlugins(
   outputStrategy := Some(StdoutOutput)
 ).settings(
   // Packaging Settings
-  mappings in Universal ++= directory(sourceDir = "bin").filterNot{ case (_, fname) => Set("bin/.gitkeep").contains(fname) },
-  mappings in Universal ++= directory(sourceDir = "conf").filterNot{ case (_, fname) => Set("conf/smqd-dev.conf").contains(fname) },
-  mappings in Universal ++= directory(sourceDir = "plugin").filterNot{ case (_, fname) => Set("plugin/.gitkeep").contains(fname) },
+  mappings in Universal ++= directory(sourceDir = "bin"),
+  mappings in Universal ++= directory(sourceDir = "conf"),
+  mappings in Universal ++= directory(sourceDir = "plugins"),
+  mappings in Universal ++= directory(target.value / "dashboard"),
+  universalArchiveOptions in (Universal, packageZipTarball) :=
+    (Seq("--exclude", ".gitkeep", "--exclude", "*-dev.*", "--exclude", "passwd") ++
+      (universalArchiveOptions in (Universal, packageZipTarball)).value),
   mainClass in Compile := Some("com.thing2x.smqd.Main"),
   packageName in Universal := s"smqd-v$smqdVersion",
   executableScriptName := "smqd",

@@ -1,9 +1,10 @@
 import { Base } from "./base";
+import { Subscriber } from "./subscription";
 
 export class Client {
-  topic: string;
-  qos: number;
-  actor: string;
+  clientId: string;
+  channelId: number;
+  subscriptions: Subscriber[];
 }
 
 export class Clients extends Base {

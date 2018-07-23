@@ -18,8 +18,16 @@ export class MetricService extends BaseService{
 
   getMetrics(): Observable<Base> {
     return this.httpClient.get<Base>(this.metricUrl).pipe(
-      tap(_ => console.log(`fetched metrics`)),
+      //tap(_ => console.log(`fetched metrics`)),
       catchError(this.handleError<Base>(`getMetrics`))
+    );
+  }
+
+  getMetric(subUrl: string): Observable<Base> {
+    const url = `${this.metricUrl}/${subUrl}`;
+    return this.httpClient.get<Base>(url).pipe(
+      //tap(_ => console.log(`fetched metric ` + subUrl)),
+      catchError(this.handleError<Base>(`getMetric ` + subUrl))
     );
   }
 }

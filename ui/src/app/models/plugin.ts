@@ -79,6 +79,7 @@ export class Column {
   key: string;
   title: string;
   type: string;
+  placeHolder: string;
   value: any;
 }
 

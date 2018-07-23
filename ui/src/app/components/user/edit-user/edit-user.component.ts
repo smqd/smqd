@@ -24,19 +24,22 @@ export class EditUserComponent implements OnInit {
 
   getUser(username) {
     this.userService.getUser(username).subscribe(result => {
-      if (!result) {
+      if (result['code']) {
         return;
       }
-      console.log('result', result);
+
       if (result.result.username != this.username) {
-        alert('username is not matched!!');
+        alert('user name is not matched!!');
       }
     })
   }
 
   modifyUser() {
+    if (!this.password) {
+      alert('password is required.');
+      return;
+    }
     var passwordObj = {'password': this.password};
-    console.log('passwordObj = ', passwordObj, this.password);
     this.userService.modifyUser(this.username, passwordObj).subscribe(result => {
       if (!result) {
         return;
@@ -44,7 +47,6 @@ export class EditUserComponent implements OnInit {
       this.router.navigateByUrl('/user/users');
     }, 
     error => {
-      console.log('modifyUser error', error);
       alert(error.error);
     });
   }
@@ -57,7 +59,6 @@ export class EditUserComponent implements OnInit {
       this.router.navigateByUrl('/user/users');
     }, 
     error => {
-      console.log('modifyUser error', error);
       alert(error.error);
     });
   }

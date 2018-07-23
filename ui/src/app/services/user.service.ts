@@ -45,7 +45,6 @@ export class UserService extends BaseService{
   }
 
   modifyUser(userName: string, params: object): Observable<Object | UserResult> {
-    console.log('params = ', params);
     const url = `${this.baseUrl}/${userName}`;
     return this.httpClient.patch<UserResult>(url, params).pipe(
       catchError(this.handleError('modifyUser'))

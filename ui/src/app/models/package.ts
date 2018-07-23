@@ -24,6 +24,11 @@ export class Packages extends Base {
   }
 }
 
-export class PackageExact extends Base {
+export class PackageResult extends Base {
+  constructor(obj) {
+    super();
+    obj && Object.assign(this, obj);
+  }
+
   result: Package;
 }

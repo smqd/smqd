@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PackageService } from '../../../services/package.service';
-import { Packages } from '../../../models/package';
+import { Packages, PackageResult } from '../../../models/package';
 
 @Component({
   selector: 'app-packages',
@@ -15,10 +15,10 @@ export class PackagesComponent implements OnInit {
   constructor(private packageService: PackageService) { }
 
   ngOnInit() {
-    this.getPlugins(this.condition);
+    this.getPackages(this.condition);
   }
 
-  getPlugins(condition) {
+  getPackages(condition) {
     //this.loaderService.showLoader();
     this.packageService.getPackages(condition).subscribe(
       packages => {
@@ -36,9 +36,19 @@ export class PackagesComponent implements OnInit {
   install(packageName: string) {
     this.packageService.packageInstall(packageName).subscribe(
       result => {
-        if (result) {
-          console.log('package install result ', result);
+        if (result['code']) {
+          alert(result['error']);
+          return;
         }
+
+        console.log('package install result ', result);
+
+        const receivedPackage = new PackageResult(result);
+        this.packages.result.objects.forEach((packageObj) => {
+          if (packageObj.name == receivedPackage.result.name) {
+            packageObj.installed = receivedPackage.result.installed;
+          }
+        });
       }
     );
   }
@@ -46,16 +56,25 @@ export class PackagesComponent implements OnInit {
   reload(packageName: string) {
     this.packageService.packageReload(packageName).subscribe(
       result => {
-        if (result) {
-          console.log('package reload result ', result);
+        if (result['code']) {
+          alert(result['error']);
+          return;
         }
+        console.log('package reload result ', result);
+
+        const receivedPackage = new PackageResult(result);
+        this.packages.result.objects.forEach((packageObj) => {
+          if (packageObj.name == receivedPackage.result.name) {
+            packageObj.installed = receivedPackage.result.installed;
+          }
+        });
       }
     );
   }
 
   pageChanged(event: any): void {
     this.condition.curr_page = event.page;
-    this.getPlugins(this.condition);
+    this.getPackages(this.condition);
   }
 }
 

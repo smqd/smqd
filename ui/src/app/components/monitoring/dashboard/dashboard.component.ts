@@ -4,6 +4,7 @@ import { Version, NodesResult } from '../../../models/dashboard';
 import { MetricService } from '../../../services/metric.service';
 import { Base } from '../../../models/base';
 import { Config } from '../../../constants/config.constants';
+import { ClientService } from '../../../services/client.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +14,29 @@ import { Config } from '../../../constants/config.constants';
 export class DashboardComponent implements OnInit {
 
   version: Version;
+  clientCount: number;
+  cpu: number;
+  threadCount: number;
+
   nodes: NodesResult;
-  metrics: Base; 
-  sortedMetrics: object;
+
   metricsJvm: object;
   metricsMqtt: object;
+  metricsWs: object;
 
-  constructor(private dashboardService: DashboardService, private metricService: MetricService) { }
+  constructor(private dashboardService: DashboardService, private metricService: MetricService, private clientService: ClientService) { }
 
   ngOnInit() {
     this.getVersion();
+    this.getClientCount();
+    this.getCpu();
+    this.getJvmThreadCount();
+
     this.getNodes();
-    this.getMetrics();
+
+    this.getMqttMetric();
+    this.getWsMetric();
+    this.getJvmMetric();
   }
 
   getVersion() {
@@ -35,6 +47,42 @@ export class DashboardComponent implements OnInit {
         }
 
         this.version = version;
+      }
+    );
+  }
+
+  getClientCount() {
+    this.clientService.getClients({page_size:10, curr_page: 1}).subscribe(
+      clients => {
+        if (clients['code']) {
+          return;
+        }
+
+        this.clientCount = clients.result.total_num;
+      }
+    );
+  }
+
+  getCpu() {
+    this.metricService.getMetric('jvm/cpu').subscribe(
+      metrics => {
+        if (metrics['code']) {
+          return;
+        }
+
+        this.cpu = metrics.result['jvm.cpu']['load'];
+      }
+    );
+  }
+
+  getJvmThreadCount() {
+    this.metricService.getMetric('jvm/thread').subscribe(
+      metrics => {
+        if (metrics['code']) {
+          return;
+        }
+
+        this.threadCount = metrics.result['jvm.thread']['count'];
       }
     );
   }
@@ -51,32 +99,39 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getMetrics() {
-    this.metricService.getMetrics().subscribe(
+  getJvmMetric() {
+    this.metricService.getMetric('jvm/heap').subscribe(
       metrics => {
         if (metrics['code']) {
           return;
         }
 
-        this.metrics = metrics;
-        this.sortedMetrics = Object
-        .keys(this.metrics['result'])
-        .sort((a, b) => this.metrics['result'][a]-this.metrics['result'][b])
-        .reduce((_sortedObj, key) => ({
-          ..._sortedObj, 
-          [key]: this.metrics['result'][key]
-        }), {})
-
-        this.metricsJvm = {};
-        this.metricsMqtt = {};
-        for(var prop in this.sortedMetrics) {
-          if (prop.startsWith(Config.metrics.jvm)) {
-            this.metricsJvm[prop.substr(Config.metrics.jvm.length + 1)] = this.sortedMetrics[prop]; 
-          } else if (prop.startsWith(Config.metrics['core-mqtt'])) {
-            this.metricsMqtt[prop.substr(Config.metrics['core-mqtt'].length + 1)] = this.sortedMetrics[prop];
-          }
-        }
+        this.metricsJvm = metrics.result['jvm.heap'];
       }
-    );
+    )
+  }
+
+  getWsMetric() {
+    this.metricService.getMetric('core-mqtt/ws').subscribe(
+      metrics => {
+        if (metrics['code']) {
+          return;
+        }
+
+        this.metricsWs = metrics.result['core-mqtt.ws'];
+      }
+    )
+  }
+
+  getMqttMetric() {
+    this.metricService.getMetric('core-mqtt/mqtt').subscribe(
+      metrics => {
+        if (metrics['code']) {
+          return;
+        }
+
+        this.metricsMqtt = metrics.result['core-mqtt.mqtt'];
+      }
+    )
   }
 }
