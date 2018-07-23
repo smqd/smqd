@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { MqttComponent } from './components/tools/mqtt/mqtt.component';
 import { AuthGuard } from './services/auth.guard';
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
 
@@ -40,6 +41,12 @@ const routes: Routes = [
       {path: 'plugins', component: PluginsComponent, canActivate:[AuthGuard]},
       {path: ':plugin/:instance/config', component: ConfigComponent, canActivate:[AuthGuard], pathMatch: 'full'},
       {path: ':plugin/instance/add', component: AddConfigComponent, canActivate:[AuthGuard]}
+    ]
+  },
+  {
+    path: 'tools', component: BasicLayoutComponent,
+    children: [
+      {path: 'mqtt', component: MqttComponent, canActivate:[AuthGuard]}
     ]
   },
   {
