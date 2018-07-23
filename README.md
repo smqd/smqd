@@ -126,6 +126,14 @@ If you want to place the logback config in a different directory,
 change the value of `-Dlogback.configurationFile` in `smqd-jvm.ini` file.
 For customization of logback.xml, please refer to the official web site of [logback](https://logback.qos.ch).
 
+## Management Web UI
+
+The management UI is accessible though `http://localhost:8080` by default.
+
+Login as a user `admin` and `password` is the default password.
+
+![dashboard_image](docs/img/dashboard.jpg)
+
 ## For UI Developers
 
 To build the project with ui-compilation together execute `sbt` with `with-ui=true` option.
