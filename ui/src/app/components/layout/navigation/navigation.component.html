@@ -22,6 +22,12 @@
         </ul>
       </li>
       <li>
+        <div><i class="fa fa-th-large"></i> <span class="nav-label">TOOLS</span></div>
+        <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('plugin')}">
+          <li [ngClass]="{active: activeRoute('mqtt')}"><a [routerLink]="['/tools/mqtt']">Mqtt</a></li>
+        </ul>
+      </li>
+      <li>
         <div><i class="fa fa-th-large"></i> <span class="nav-label">USER</span></div>
         <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('user')}">
           <li [ngClass]="{active: activeRoute('user')}"><a [routerLink]="['/user/users']">User</a></li>

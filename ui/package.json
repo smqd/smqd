@@ -27,6 +27,7 @@
     "jwt-decode": "^2.2.0",
     "metismenu": "^2.7.9",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-mqtt": "^6.4.1",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
     "zone.js": "^0.8.26"

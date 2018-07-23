@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 // App modules/components
 import { LayoutModule } from './components/layout/layout.module';
+import { MqttModule } from 'ngx-mqtt'
 
 // App Services
 import { httpInterceptorProviders } from './interceptors';
@@ -28,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { ToolsModule } from './components/tools/tools.module'
 
 
 @NgModule({
@@ -36,7 +38,7 @@ import { EditUserComponent } from './components/user/edit-user/edit-user.compone
     LoginComponent,
     UserComponent,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,9 @@ import { EditUserComponent } from './components/user/edit-user/edit-user.compone
     AppRoutingModule,
     LayoutModule,
     MonitoringModule,
-    PluginModule
+    PluginModule,
+    ToolsModule,
+    MqttModule.forRoot({connectOnCreate: false})
   ],
   providers: [
     httpInterceptorProviders,
