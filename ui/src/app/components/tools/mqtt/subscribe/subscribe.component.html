@@ -11,66 +11,48 @@
         <form [formGroup]="option" novalidate>
         <div class="ibox-content">
           <div class="row">
-            <div class="col-lg-8 row">
-              <div class="col-lg-6">
+            <div class="col-lg-12 row">
+              <div class="col-lg-4">
                 <div class="form-group" >
                   <label>host</label>
                   <input class="form-control b-r-md dark-bg" formControlName="host" placeholder="127.0.0.1">
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
                 <div class="form-group" >
                   <label>port</label>
                   <input class="form-control b-r-md dark-bg" formControlName="port" placeholder="8086">
                 </div>
+              </div>    
+              <div class="col-lg-4">
+                <div class="form-group" >
+                  <label>client id</label>
+                  <input class="form-control b-r-md dark-bg" formControlName="clientId">
+                </div>
               </div>
             </div>
-            <div class="col-lg-4 row">
-              <div class="form-group" >
-                <label>client id</label>
-                <input class="form-control b-r-md dark-bg" formControlName="clientId">
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-lg-8 row">
-              <div class="col-lg-6">
+            <div class="col-lg-12 row">
+              <div class="col-lg-4">
                 <div class="form-group" >
                   <label>username</label>
                   <input class="form-control b-r-md dark-bg" formControlName="username">
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
                 <div class="form-group" >
                   <label>password</label>
                   <input class="form-control b-r-md dark-bg" formControlName="password">
                 </div>
               </div>
-            </div>
-            <div class="col-lg-8 row">
-              <div class="col-lg-6">
+              <div class="col-lg-4">
                 <div class="form-group" >
-                    <label>&nbsp;</label>
-                    <button class="b-r-md dark-bg" type="button" (click)="subconnectMqtt(option.value)" [disabled]="state" >connect</button>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group" >
-                    <label>&nbsp;</label>
-                    <button class="b-r-md dark-bg" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
+                    <label>connect</label>
+                    <button *ngIf="!state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="connectMqtt(option.value)" [disabled]="state" >connect</button>
+                    <button *ngIf="state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 row">
-              <div class="form-group" >
-                <label>connect state</label>
-                <div class="connect-state">
-                     {{state}}
-                </div>
-              </div>
-            </div>
-
             <div class="col-lg-12">
               <div class="form-group" >
                 <label>will</label>
@@ -107,8 +89,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="form-group" >
-                    <label>Qos</label>
-                    <!-- <input class="form-control b-r-md dark-bg" placeholder="얍얍"> -->
+                    <label>QoS</label>
                     <select class="form-control b-r-md dark-bg" formControlName="qos">
                       <option>0</option>
                       <option>1</option>
@@ -158,7 +139,7 @@
       <div class="ibox-title">
         <div class="row">
           <div class="col-lg-12">
-            Subscribe Message
+            Received Messages
           </div>
         </div>
         <div class="ibox-content">
@@ -167,7 +148,7 @@
               <table class="table">
                 <thead>
                     <tr>
-                      <th style="width:20%">Messages</th>
+                      <th style="width:20%">Message</th>
                       <th style="width:10%">Topic</th>
                       <th style="width:15%">QoS</th>
                       <th style="width:5%">Time</th>
@@ -184,14 +165,11 @@
               </table>
             </div>
             <div class="col-lg-1">
-              <button class="b-r-md dark-bg" type="button" (click)="resetList()">reset</button>
+              <button class="b-r-md dark-bg" type="button" (click)="resetList()">clear</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
 </div>

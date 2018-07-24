@@ -21,17 +21,17 @@ export class SubscribeComponent implements OnInit, OnDestroy {
   sub: FormGroup;
   subList = [];
   subscriptionList = [];
-
+  qosOptions= [0, 1, 2];
   state: boolean;
   
   constructor(private fb: FormBuilder) {}
-
+  
   ngOnInit() {
     this.state = false;
     this.option = this.fb.group({
-      'host': [null],
-      'port': [null],
-      'clientId': [null],
+      'host': ['127.0.0.1'],
+      'port': [8086],
+      'clientId': ['SubClient_' + parseInt((new Date().getTime()).toString().substring(8,10).concat(Math.floor(Math.random() * 100)+'', '0'))],
       'will': [null],
       'username': [null],
       'password': [null],
@@ -40,12 +40,11 @@ export class SubscribeComponent implements OnInit, OnDestroy {
     });
     this.sub = this.fb.group({
       'topic':['/#'],
-      'qos':[1]
+      'qos':[0]
     });
   }
 
-  public subconnectMqtt(option) {
-    console.log(option)
+  public connectMqtt(option) {
     if (isString(option.will)) {
       option.will = JSON.parse(option.will)
     }
@@ -80,12 +79,14 @@ export class SubscribeComponent implements OnInit, OnDestroy {
   }
 
   public subscribe(sub) {
+    if(isString(sub.qos)){
+      sub.qos = parseInt(sub.qos);
+    }
     if(this.subClient == undefined) {
       alert('NOT CONNECT MQTT')
     } else {
       this.subscription = this.subClient.observe(sub.topic,{qos: sub.qos}).subscribe((message: IMqttMessage) => {
         this.message = message.payload.toString();
-        console.log(this.subClient.clientId,this.message, this.subscription)
         this.subList.push({'message': this.message, 'topic': sub.topic, 'qos': sub.qos, 'time': new Date()})
       });
       this.subscriptionList.push({'subscription': this.subscription , 'topic': sub.topic, 'qos': sub.qos, 'time': new Date()})

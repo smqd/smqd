@@ -28,9 +28,9 @@ export class PublishComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.state = false;
     this.option = this.fb.group({
-      'host': [null],
-      'port': [null],
-      'clientId': [null],
+      'host': ['127.0.0.1'],
+      'port': [8086],
+      'clientId': ['PubClient_' + parseInt((new Date().getTime()).toString().substring(10,12).concat(Math.floor(Math.random() * 100)+'', '0'))],
       'will': [null],
       'username': [null],
       'password': [null],
@@ -40,13 +40,12 @@ export class PublishComponent implements OnInit, OnDestroy {
     this.pub = this.fb.group({
       'topic':[null],
       'message':[null],
-      'qos':[1],
+      'qos':[0],
       'retain': [false]
     })
   }
 
   public connectMqtt(option) {
-    console.log(option)
     if (isString(option.will)) {
       option.will = JSON.parse(option.will)
     }
