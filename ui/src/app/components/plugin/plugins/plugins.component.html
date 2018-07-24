@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content">
     <div class="row">
       <div class="col-lg-12">
-        <h2>Installed Plugin</h2>
+        <h2>Installed Plugins</h2>
       </div>
     </div>
   
@@ -58,17 +58,6 @@
                             <button type="button" class="b-r-md dark-bg" [routerLink]="['/plugin', plugin.name, 'instance', 'add']">new</button>
                             <button type="button" class="b-r-md dark-bg" (click)="removeInstance(plugin.name, instance.name)">del</button>
                           </td>
-                        </tr>
-                        <!-- <tr *ngFor="let instance of plugin.instances">
-                          <td>{{instance.name}}</td>
-                          <td>{{instance['auto-start']}}</td>
-                          <td [ngClass]="{'text-warning' : instance.status == 'RUNNING'}">{{instance.status}}</td>
-                          <td><button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'RUNNING'">stop</button><button type="button" class="b-r-md dark-bg" *ngIf="instance.status == 'STOPED'">start</button></td>
-                          <td><button type="button" class="b-r-md dark-bg">config</button></td>
-                        </tr> -->
-
-                        <tr *ngIf="!plugins?.result?.total_num">
-                          <td colspan="5">No Data</td>
                         </tr>
                       </tbody>
                     </table>

@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content">
     <div class="row">
       <div class="col-lg-12">
-        <h2>Install Plugin</h2>
+        <h2>Packages</h2>
       </div>
     </div>
   
@@ -21,7 +21,7 @@
                   <th>Version</th>
                   <th>Description</th>
                   <th>Provider</th>
-                  <th>Download</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -33,9 +33,6 @@
                   <td *ngIf="!package.installable"></td>
                   <td *ngIf="package.installable && package.installed"><button type="button" class="b-r-md dark-bg" (click)="reload(package.name)">ReInstall</button></td>
                   <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md dark-bg" (click)="install(package.name)">Install</button></td>
-                </tr>
-                <tr *ngIf="!packages?.result?.total_num">
-                  <td colspan="5">No Data</td>
                 </tr>
               </tbody>
             </table>
