@@ -43,7 +43,7 @@ class DashboardController(name: String, context: HttpServiceContext) extends Res
       case path @ resourceRegex(_) =>
         getFromFile(withTrailingSlash(basedir) + path)
       case _ =>
-        redirect("/dashboard/index.html", StatusCodes.PermanentRedirect)
+        getFromFile(withTrailingSlash(basedir) + "index.html")
     }
 
   private val dashboardEntrance: Route = redirect("/dashboard/index.html", StatusCodes.PermanentRedirect)
