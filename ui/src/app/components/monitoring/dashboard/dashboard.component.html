@@ -159,8 +159,9 @@
             <tbody *ngIf="metricsJvm">
               <tr *ngFor="let key of metricsJvm | keys">
                 <td>{{key}}</td>
-                <td class="text-right" *ngIf="key != 'total'">{{metricsJvm[key] / 1000000 | number: '1.2-2'}} MB</td>
+                <td class="text-right" *ngIf="key != 'total' && key != 'fd'">{{metricsJvm[key] / 1000000 | number: '1.2-2'}} MB</td>
                 <td class="text-right" *ngIf="key == 'total'">{{metricsJvm[key] / 1000000000 | number: '1.2-2'}} GB</td>
+                <td class="text-right" *ngIf="key == 'fd'">{{metricsJvm[key]}} ea</td>
               </tr>
             </tbody>
           </table>

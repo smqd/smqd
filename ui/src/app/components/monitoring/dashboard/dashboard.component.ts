@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Version, NodesResult } from '../../../models/dashboard';
 import { MetricService } from '../../../services/metric.service';
-import { Base } from '../../../models/base';
-import { Config } from '../../../constants/config.constants';
 import { ClientService } from '../../../services/client.service';
 
 @Component({
@@ -17,6 +15,7 @@ export class DashboardComponent implements OnInit {
   clientCount: number;
   cpu: number;
   threadCount: number;
+  fdCount: number;
 
   nodes: NodesResult;
 
@@ -31,6 +30,7 @@ export class DashboardComponent implements OnInit {
     this.getClientCount();
     this.getCpu();
     this.getJvmThreadCount();
+
 
     this.getNodes();
 
@@ -100,13 +100,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getJvmMetric() {
-    this.metricService.getMetric('jvm/heap').subscribe(
+    this.metricService.getJvmMetric().subscribe(
       metrics => {
         if (metrics['code']) {
           return;
         }
 
-        this.metricsJvm = metrics.result['jvm.heap'];
+        console.log('metrics = ', metrics);
+        this.metricsJvm = metrics['result']['jvm.heap'];
       }
     )
   }
