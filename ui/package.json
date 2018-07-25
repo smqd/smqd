@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port=4300",
     "build": "ng build --prod --base-href ./",
     "test": "ng test",
     "lint": "ng lint",
@@ -28,6 +28,7 @@
     "metismenu": "^2.7.9",
     "ngx-bootstrap": "^3.0.1",
     "ngx-mqtt": "^6.4.1",
+    "ngx-ui-switch": "^6.0.3",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
     "zone.js": "^0.8.26"
