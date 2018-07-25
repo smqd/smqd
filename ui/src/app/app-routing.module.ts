@@ -10,7 +10,7 @@ import { EditConfigComponent } from './components/plugin/config/edit-config/edit
 import { AddConfigComponent } from './components/plugin/config/add-config/add-config.component';
 import { SubscriptionsComponent } from './components/monitoring/subscriptions/subscriptions.component';
 import { LoginComponent } from './components/login/login.component';
-import { UserComponent } from './components/user/user.component';
+import { UserComponent } from './components/user/user/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { MqttComponent } from './components/tools/mqtt/mqtt.component';
