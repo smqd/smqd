@@ -207,4 +207,19 @@ small {
   left: 20px !important;
 }
 
+/* instance failure */
+pre {
+  display: block;
+  padding: 0px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.42857143;
+  color: #888;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #232429;
+  border: 0px;
+  border-radius: 4px;
+}
 /* end config */

@@ -19,10 +19,8 @@
               <div class="form-group col-lg-4">
                 <label>Auto Start</label>
                 
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" [(ngModel)]="newConfig['auto-start']"> true
-                  </label>
+                <div class="checkbox-small" *ngIf="newConfig">
+                  <ui-switch [(ngModel)]="newConfig['auto-start']"></ui-switch>
                 </div>
                 
               </div>

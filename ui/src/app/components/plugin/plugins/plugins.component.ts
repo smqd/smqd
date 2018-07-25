@@ -102,8 +102,4 @@ export class PluginsComponent implements OnInit {
     this.getPlugins(this.condition);
   }
 
-  goConfig(pluginName: string, instanceName:string) {
-    this.router.navigateByUrl('/plugin/'+pluginName + '/'+instanceName + '/config');
-  }
-
 }

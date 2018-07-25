@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 import { PackagesComponent } from './packages/packages.component';
 import { PluginsComponent } from './plugins/plugins.component';
-import { ConfigComponent } from './config/config.component';
 import { MonitoringModule } from '../monitoring/monitoring.module';
 import { KeystringPipe } from '../../constants/keystring.pipe';
 import { InputComponent } from './config/input/input.component';
 import { SelectComponent } from './config/select/select.component';
 import { AddConfigComponent } from './config/add-config/add-config.component';
+import { EditConfigComponent } from './config/edit-config/edit-config.component';
 import { SectionComponent } from './config/section/section.component';
 import { KeyobjectPipe } from '../../constants/keyobject.pipe';
-
-
+import { PluginFailureComponent } from './plugin-failure/plugin-failure.component';
 
 @NgModule({
   imports: [
@@ -23,27 +24,36 @@ import { KeyobjectPipe } from '../../constants/keyobject.pipe';
     ReactiveFormsModule,
     RouterModule,
     PaginationModule.forRoot(),
-    MonitoringModule
+    MonitoringModule,
+    UiSwitchModule.forRoot({
+      //size: 'large',
+      // color: 'rgb(0, 189, 99)',
+      // switchColor: '#80FFA2',
+      // defaultBgColor: '#00ACFF',
+      defaultBoColor : '#313437',
+    })
   ],
   declarations: [
     PackagesComponent,
     PluginsComponent,
-    ConfigComponent,
     KeystringPipe,
     KeyobjectPipe,
     InputComponent,
     SelectComponent,
     AddConfigComponent,
-    SectionComponent
+    EditConfigComponent,
+    SectionComponent,
+    PluginFailureComponent
   ],
   exports: [
     PackagesComponent,
     PluginsComponent,
-    ConfigComponent,
+    EditConfigComponent,
     KeystringPipe,
     SelectComponent,
     AddConfigComponent,
-    SectionComponent
+    SectionComponent,
+    PluginFailureComponent
   ]
 })
 export class PluginModule { }

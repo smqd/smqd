@@ -6,7 +6,7 @@ import { PackagesComponent } from './components/plugin/packages/packages.compone
 import { PluginsComponent } from './components/plugin/plugins/plugins.component';
 import { ClientsComponent } from './components/monitoring/clients/clients.component';
 import { RoutesComponent } from './components/monitoring/routes/routes.component';
-import { ConfigComponent } from './components/plugin/config/config.component';
+import { EditConfigComponent } from './components/plugin/config/edit-config/edit-config.component';
 import { AddConfigComponent } from './components/plugin/config/add-config/add-config.component';
 import { SubscriptionsComponent } from './components/monitoring/subscriptions/subscriptions.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,6 +16,7 @@ import { EditUserComponent } from './components/user/edit-user/edit-user.compone
 import { MqttComponent } from './components/tools/mqtt/mqtt.component';
 import { AuthGuard } from './services/auth.guard';
 import { NotFoundComponent } from './components/layout/not-found/not-found.component';
+import { PluginFailureComponent } from './components/plugin/plugin-failure/plugin-failure.component';
 
 const routes: Routes = [
   // Main redirect
@@ -39,8 +40,9 @@ const routes: Routes = [
     children: [
       {path: 'packages', component: PackagesComponent, canActivate:[AuthGuard]},
       {path: 'plugins', component: PluginsComponent, canActivate:[AuthGuard]},
-      {path: ':plugin/:instance/config', component: ConfigComponent, canActivate:[AuthGuard], pathMatch: 'full'},
-      {path: ':plugin/instance/add', component: AddConfigComponent, canActivate:[AuthGuard]}
+      {path: ':plugin/:instance/edit', component: EditConfigComponent, canActivate:[AuthGuard], pathMatch: 'full'},
+      {path: ':plugin/instance/add', component: AddConfigComponent, canActivate:[AuthGuard]},
+      {path: ':plugin/:instance/fail', component: PluginFailureComponent, canActivate:[AuthGuard]}
     ]
   },
   {

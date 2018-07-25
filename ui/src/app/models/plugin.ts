@@ -98,3 +98,14 @@ export class ConfigSchema {
 
   sections: Section[];
 }
+
+
+export class InstanceFailureResult extends Base{
+  result: {
+    plugin: string;
+    failure: {
+      message: string;
+      stack: string;
+    }
+  }
+}
