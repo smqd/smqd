@@ -32,7 +32,7 @@ export class SubscribeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.state = false;
     this.will = this.fb.group({
-      'topic':[null ,Validators.compose([Validators.pattern('^\/+[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
+      'topic':[null ,Validators.compose([Validators.pattern('^[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
       'payload': [null],
       'qos':[0],
       'retain': false
@@ -50,7 +50,7 @@ export class SubscribeComponent implements OnInit, OnDestroy {
       'keepalive': 60
     });
     this.sub = this.fb.group({
-      'topic':[null ,Validators.compose([Validators.required, Validators.pattern('^\/+[a-zA-Z0-9]*[^a-zA-Z0-9\#]*[/a-zA-Z0-9]*[^a-zA-Z0-9\#]*[/a-zA-Z0-9]*[\/\#]?$')])],
+      'topic':[null ,Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]*[^\#]*[/a-zA-Z0-9]*[^\#]*[/a-zA-Z0-9]*[\/\#]?$')])],
       'qos':[0]
     });
   }

@@ -31,7 +31,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.state = false;
     this.will = this.fb.group({
-      'topic':["" ,Validators.compose([Validators.pattern('^\/+[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
+      'topic':["" ,Validators.compose([Validators.pattern('^[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
       'payload': [""],
       'qos':[0],
       'retain': false
@@ -49,7 +49,7 @@ export class PublishComponent implements OnInit, OnDestroy {
       'keepalive': 60
     });
     this.pub = this.fb.group({
-      'topic':[null, Validators.compose([Validators.required, Validators.pattern('^\/+[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
+      'topic':[null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]*[^\+^\#]*[\/a-zA-Z0-9]*$')])],
       'message':[null],
       'qos':[0],
       'retain': [false]
