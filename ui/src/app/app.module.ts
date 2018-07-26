@@ -26,20 +26,15 @@ import { RouteService } from './services/route.service';
 import { PaginationModule } from 'ngx-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
-import { UserComponent } from './components/user/user.component';
-import { AddUserComponent } from './components/user/add-user/add-user.component';
-import { EditUserComponent } from './components/user/edit-user/edit-user.component';
 import { ToolsModule } from './components/tools/tools.module'
 import { AuthGuard } from './services/auth.guard';
+import { UserModule } from './components/user/user.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    UserComponent,
-    AddUserComponent,
-    EditUserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +47,7 @@ import { AuthGuard } from './services/auth.guard';
     MonitoringModule,
     PluginModule,
     ToolsModule,
+    UserModule,
     MqttModule.forRoot({connectOnCreate: false})
   ],
   providers: [

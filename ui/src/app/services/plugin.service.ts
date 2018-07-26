@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { PluginsResult, PluginResult, InstanceResult, InstanceConfigResult, PluginConfigResult } from '../models/plugin';
+import { PluginsResult, PluginResult, InstanceResult, InstanceConfigResult, PluginConfigResult, InstanceFailureResult } from '../models/plugin';
 
 @Injectable({
   providedIn: 'root'
@@ -59,20 +59,25 @@ export class PluginService extends BaseService{
     );
   }
 
+  getInstanceStatus(pluginName: string, instanceName: string): Observable<InstanceFailureResult> {
+    const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}`;
+    return this.httpClient.get<InstanceFailureResult>(url).pipe(
+      catchError(this.handleError<InstanceFailureResult>(`getIntanceStatus`))
+    );
+  }
+
   /* config */
   getPluginConfig(pluginName: string): Observable<PluginConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/config`;
     return this.httpClient.get<PluginConfigResult>(url).pipe(
-      //tap(_ => console.log(`fetched config`)),
-      catchError(this.handleError<PluginConfigResult>(`getConfig`))
+      catchError(this.handleError<PluginConfigResult>(`getPluginConfig`))
     );
   }
 
   getInstanceConfig(pluginName: string, instanceName: string): Observable<InstanceConfigResult> {
     const url = `${this.pluginsUrl}/${pluginName}/instances/${instanceName}/config`;
     return this.httpClient.get<InstanceConfigResult>(url).pipe(
-      //tap(_ => console.log(`fetched config`)),
-      catchError(this.handleError<InstanceConfigResult>(`getConfig`))
+      catchError(this.handleError<InstanceConfigResult>(`getInstanceConfig`))
     );
   }
 

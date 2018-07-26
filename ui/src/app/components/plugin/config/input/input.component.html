@@ -7,9 +7,7 @@
 <div class="form-group" *ngIf="column.type == 'boolean'">
   <label *ngIf="column.title != null">{{column.title}}</label>
   <label *ngIf="column.title == null">{{column.key}}</label>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" [(ngModel)]="column.value"> true
-    </label>
+  <div class="checkbox-small">
+    <ui-switch [(ngModel)]="column.value"></ui-switch>
   </div>
 </div>

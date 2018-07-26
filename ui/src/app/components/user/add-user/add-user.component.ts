@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from '../../../services/user.service';
-import { FormGroup, Validators, FormBuilder } from '../../../../../node_modules/@angular/forms';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',

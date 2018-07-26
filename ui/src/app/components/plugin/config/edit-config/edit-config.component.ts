@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { PluginService } from '../../../services/plugin.service';
-import { PluginConfigResult, Column, ConfigSchema, Section, InstanceConfigResult, InstanceConfig } from '../../../models/plugin';
-import { KeystringPipe } from '../../../constants/keystring.pipe';
-import { KeyobjectPipe } from '../../../constants/keyobject.pipe';
+import { PluginService } from '../../../../services/plugin.service';
+import { PluginConfigResult, Column, ConfigSchema, Section, InstanceConfigResult, InstanceConfig } from '../../../../models/plugin';
+import { KeystringPipe } from '../../../../constants/keystring.pipe';
+import { KeyobjectPipe } from '../../../../constants/keyobject.pipe';
 
 @Component({
-  selector: 'app-config',
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss']
+  selector: 'app-add-config',
+  templateUrl: './edit-config.component.html',
+  styleUrls: ['./edit-config.component.scss']
 })
-export class ConfigComponent implements OnInit {
+export class EditConfigComponent implements OnInit {
 
   pluginName: string;
   instanceName: string;

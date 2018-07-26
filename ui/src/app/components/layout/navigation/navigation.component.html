@@ -3,11 +3,11 @@
     <ul class="nav" id="side-menu">
       <li class="nav-header">
         <div class="profile-element">
-          <img alt="t2x" class="logo" src="assets/smqd/common/t2x_smqd1.png">
+          <img class="logo" src="assets/smqd/common/t2x_smqd1.png">
           <!-- <span>Dashboard</span> -->
         </div>
         <div class="logo-element">
-            <img alt="t2x" class="logo" src="assets/smqd/common/t2x_smqd.png">
+            <img class="logo" src="assets/smqd/common/t2x_smqd.png">
         </div>
       </li>
       <li>
@@ -20,20 +20,20 @@
         </ul>
       </li>
       <li>
-        <div><i class="fa fa-th-large"></i> <span class="nav-label">PLUGINS</span></div>
+        <div><i class="fa fa-cubes"></i> <span class="nav-label">PLUGINS</span></div>
         <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('plugin')}">
-          <li [ngClass]="{active: activeRoute('packages')}"><a [routerLink]="['/plugin/packages']">Total</a></li>
+          <li [ngClass]="{active: activeRoute('packages')}"><a [routerLink]="['/plugin/packages']">Packages</a></li>
           <li [ngClass]="{active: activeRoute('plugins')}"><a [routerLink]="['/plugin/plugins']">Installed</a></li>
         </ul>
       </li>
-      <!-- <li>
-        <div><i class="fa fa-th-large"></i> <span class="nav-label">TOOLS</span></div>
+      <li>
+        <div><i class="fa fa-wrench"></i> <span class="nav-label">TOOLS</span></div>
         <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('plugin')}">
           <li [ngClass]="{active: activeRoute('mqtt')}"><a [routerLink]="['/tools/mqtt']">MQTT</a></li>
         </ul>
-      </li> -->
+      </li>
       <li>
-        <div><i class="fa fa-th-large"></i> <span class="nav-label">USER</span></div>
+        <div><i class="fa fa-key"></i> <span class="nav-label">USER</span></div>
         <ul class="nav nav-second-level" [ngClass]="{in: activeRoute('user')}">
           <li [ngClass]="{active: activeRoute('user')}"><a [routerLink]="['/user/users']">User</a></li>
         </ul>

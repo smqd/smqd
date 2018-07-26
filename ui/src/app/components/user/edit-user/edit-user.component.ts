@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from '../../../services/user.service';
-import { FormGroup, Validators, FormBuilder, FormControl } from '../../../../../node_modules/@angular/forms';
-import { Router, ActivatedRoute } from '../../../../../node_modules/@angular/router';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user';
 
 @Component({

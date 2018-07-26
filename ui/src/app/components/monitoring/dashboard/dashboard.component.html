@@ -14,7 +14,7 @@
       <div class="widget style1 white-bg">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <i class="fa fa-trophy fa-4x"></i>
+            <i class="fa fa-map-signs fa-4x"></i>
           </div>
           <div class="col-xs-8 text-right">
             <span> Version </span>
@@ -28,10 +28,10 @@
       <div class="widget style1 white-bg">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <i class="fa fa-diamond fa-4x"></i>
+            <i class="fa fa-sitemap fa-4x"></i>
           </div>
           <div class="col-xs-8 text-right">
-            <span> Client Count </span>
+            <span> Clients </span>
             <h2 class="font-bold">{{clientCount}}</h2>
           </div>
         </div>
@@ -42,10 +42,10 @@
       <div class="widget style1 white-bg">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <i class="fa fa-microchip fa-4x"></i>
+            <i class="fa fa-tasks fa-4x"></i>
           </div>
           <div class="col-xs-8 text-right">
-            <span> CPU </span>
+            <span> Load </span>
             <h2 class="font-bold">{{cpu | number: '1.2-2'}}</h2>
           </div>
         </div>
@@ -55,10 +55,10 @@
       <div class="widget style1 white-bg">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <i class="fa fa-server fa-4x"></i>
+            <i class="fa fa-microchip fa-4x"></i>
           </div>
           <div class="col-xs-8 text-right">
-            <span> Thread Count </span>
+            <span> Threads </span>
             <h2 class="font-bold">{{threadCount}}</h2>
           </div>
         </div>
@@ -159,8 +159,9 @@
             <tbody *ngIf="metricsJvm">
               <tr *ngFor="let key of metricsJvm | keys">
                 <td>{{key}}</td>
-                <td class="text-right" *ngIf="key != 'total'">{{metricsJvm[key] / 1000000 | number: '1.2-2'}} MB</td>
+                <td class="text-right" *ngIf="key != 'total' && key != 'fd'">{{metricsJvm[key] / 1000000 | number: '1.2-2'}} MB</td>
                 <td class="text-right" *ngIf="key == 'total'">{{metricsJvm[key] / 1000000000 | number: '1.2-2'}} GB</td>
+                <td class="text-right" *ngIf="key == 'fd'">{{metricsJvm[key]}} ea</td>
               </tr>
             </tbody>
           </table>

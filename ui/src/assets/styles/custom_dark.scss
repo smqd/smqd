@@ -175,3 +175,51 @@ ul.nav-second-level {
   color: #dc3545;
 }
 /* end login */
+
+/* begin config ui-switch */
+/* ui-switch */
+.checkbox-small {
+  margin-top: 2px;
+}
+small {
+  box-shadow: 0 1px 3px rgb(0, 0, 0) !important;
+}
+.switch-small {
+  width: 38px !important;
+  height: 20px;
+}
+.switch-small.checked small {
+  left: 18px !important;
+}
+small {
+  box-shadow: 0 1px 3px rgb(0, 0, 0) !important;
+}
+.switch-medium {
+  width: 45px !important;
+  height: 25px !important;
+  border-radius: 25px !important;
+}
+.switch-medium small {
+  width: 25px !important;
+  height: 25px !important;
+}
+.switch-medium.checked small {
+  left: 20px !important;
+}
+
+/* instance failure */
+pre {
+  display: block;
+  padding: 0px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.42857143;
+  color: #888;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #232429;
+  border: 0px;
+  border-radius: 4px;
+}
+/* end config */
