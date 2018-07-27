@@ -1,42 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { IMqttMessage, MqttConnectionState } from 'ngx-mqtt';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Version, NodesResult } from '../../../models/dashboard';
 import { MetricService } from '../../../services/metric.service';
 import { ClientService } from '../../../services/client.service';
+import { MqttMessageService } from '../../../services/mqtt-message.service';
+import { Config } from '../../../constants/config.constants';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   version: Version;
   clientCount: number;
-  cpu: number;
-  threadCount: number;
-  fdCount: number;
 
   nodes: NodesResult;
 
-  metricsJvm: object;
-  metricsMqtt: object;
-  metricsWs: object;
+  // metric
+  metrics: object;
+  keyNames = {mqtt: 'core-mqtt.mqtt', ws: 'core-mqtt.ws', jvm: 'jvm.heap', cpu: 'jvm.cpu.load', thread: 'jvm.thread.count', fd: 'jvm.fd'}
 
-  constructor(private dashboardService: DashboardService, private metricService: MetricService, private clientService: ClientService) { }
+  // mqtt
+  topic: object;
+  subClient;
+  subscription: Subscription;
+
+
+  constructor(private dashboardService: DashboardService, private metricService: MetricService, private clientService: ClientService, private mqttMessageService: MqttMessageService) { }
 
   ngOnInit() {
     this.getVersion();
     this.getClientCount();
-    this.getCpu();
-    this.getJvmThreadCount();
-
-
     this.getNodes();
+    this.getMetrics();
 
-    this.getMqttMetric();
-    this.getWsMetric();
-    this.getJvmMetric();
+    this.mqttConnect();
   }
 
   getVersion() {
@@ -63,30 +65,6 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getCpu() {
-    this.metricService.getMetric('jvm/cpu').subscribe(
-      metrics => {
-        if (metrics['code']) {
-          return;
-        }
-
-        this.cpu = metrics.result['jvm.cpu']['load'];
-      }
-    );
-  }
-
-  getJvmThreadCount() {
-    this.metricService.getMetric('jvm/thread').subscribe(
-      metrics => {
-        if (metrics['code']) {
-          return;
-        }
-
-        this.threadCount = metrics.result['jvm.thread']['count'];
-      }
-    );
-  }
-
   getNodes() {
     this.dashboardService.getNodes().subscribe(
       nodes => {
@@ -99,40 +77,47 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getJvmMetric() {
-    this.metricService.getJvmMetric().subscribe(
+  getMetrics() {
+    this.metricService.getMetrics().subscribe(
       metrics => {
         if (metrics['code']) {
           return;
         }
 
-        console.log('metrics = ', metrics);
-        this.metricsJvm = metrics['result']['jvm.heap'];
+        this.metrics = metrics.result;
       }
-    )
+    );
   }
 
-  getWsMetric() {
-    this.metricService.getMetric('core-mqtt/ws').subscribe(
-      metrics => {
-        if (metrics['code']) {
-          return;
-        }
-
-        this.metricsWs = metrics.result['core-mqtt.ws'];
+  mqttConnect() {
+    this.subClient = this.mqttMessageService.connectMqtt(Config.mqttConnectOption);
+    this.subClient.state.pipe().subscribe(state => {
+      if (state == MqttConnectionState.CONNECTED) {
+        this.subscribe();
       }
-    )
+    });
   }
 
-  getMqttMetric() {
-    this.metricService.getMetric('core-mqtt/mqtt').subscribe(
-      metrics => {
-        if (metrics['code']) {
-          return;
+  public subscribe() {
+    console.log('call subscribe in dashboard ###');
+    this.subscription = this.subClient.observe(Config.mqttMetricTopic.topic,{qos: Config.mqttMetricTopic.qos}).subscribe((message: IMqttMessage) => {
+      var mqttMessage = JSON.parse(message.payload.toString());
+      for (let key in mqttMessage) {
+        if (this.metrics) {
+          this.metrics[key] = mqttMessage[key];
+        } else {
+          this.metrics = mqttMessage;
         }
-
-        this.metricsMqtt = metrics.result['core-mqtt.mqtt'];
       }
-    )
+    });
+  }
+
+  public ngOnDestroy() {
+    if(this.subscription) {
+      this.mqttMessageService.unsubscribe(this.subscription);
+    }
+    if (this.subClient) {
+      this.mqttMessageService.disConnectMqtt();
+    }
   }
 }

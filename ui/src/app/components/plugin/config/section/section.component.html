@@ -8,7 +8,11 @@
   <div *ngIf="!row.type || (row.type && row.type != 'growable')">
     <div class="col-lg-11 row" >
       <div class="col-lg-4" *ngFor="let column of row.columns">
-        <app-input [column]="column"></app-input>
+        <app-select *ngIf="column.enum" [column]="column"></app-select>
+        <ng-container *ngIf="!column.enum">
+          <app-input *ngIf="!column.type || column.type != 'textarea'" [column]="column"></app-input>
+          <app-textarea *ngIf="column.type && column.type == 'textarea'" [column]="column"></app-textarea>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -16,7 +20,11 @@
   <div *ngIf="row.type && row.type == 'growable'">
     <div class="col-lg-11 row" >
       <div class="col-lg-4" *ngFor="let column of row.columns">
-        <app-input [column]="column"></app-input>
+        <app-select *ngIf="column.enum" [column]="column"></app-select>
+        <ng-container *ngIf="!column.enum">
+          <app-input *ngIf="!column.type || column.type != 'textarea'" [column]="column"></app-input>
+          <app-textarea *ngIf="column.type && column.type == 'textarea'" [column]="column"></app-textarea>
+        </ng-container>
       </div>
     </div>
     <div class="btn-group-sm">

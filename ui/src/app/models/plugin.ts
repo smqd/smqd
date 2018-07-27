@@ -76,11 +76,16 @@ export class InstanceConfigResult extends Base {
 }
 
 export class Column {
+  constructor(obj) {
+    obj && Object.assign(this, obj);
+  }
+
   key: string;
   title: string;
   type: string;
-  placeHolder: string;
+  placeholder: string;
   value: any;
+  enum: object;
 }
 
 export class Section {

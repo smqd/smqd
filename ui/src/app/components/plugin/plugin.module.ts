@@ -8,14 +8,15 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { PackagesComponent } from './packages/packages.component';
 import { PluginsComponent } from './plugins/plugins.component';
 import { MonitoringModule } from '../monitoring/monitoring.module';
-import { KeystringPipe } from '../../constants/keystring.pipe';
+import { KeystringPipe } from '../../pipe/keystring.pipe';
 import { InputComponent } from './config/input/input.component';
 import { SelectComponent } from './config/select/select.component';
 import { AddConfigComponent } from './config/add-config/add-config.component';
 import { EditConfigComponent } from './config/edit-config/edit-config.component';
 import { SectionComponent } from './config/section/section.component';
-import { KeyobjectPipe } from '../../constants/keyobject.pipe';
+import { KeyobjectPipe } from '../../pipe/keyobject.pipe';
 import { PluginFailureComponent } from './plugin-failure/plugin-failure.component';
+import { TextareaComponent } from './config/textarea/textarea.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { PluginFailureComponent } from './plugin-failure/plugin-failure.componen
     AddConfigComponent,
     EditConfigComponent,
     SectionComponent,
-    PluginFailureComponent
+    PluginFailureComponent,
+    TextareaComponent
   ],
   exports: [
     PackagesComponent,

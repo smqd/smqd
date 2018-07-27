@@ -4,8 +4,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoutesComponent } from './routes/routes.component';
 import { ClientsComponent } from './clients/clients.component';
 import { PaginationModule } from 'ngx-bootstrap';
-import { KeysPipe } from '../../constants/keys.pipe';
+import { KeysPipe } from '../../pipe/keys.pipe';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { StartsWithPipe } from '../../pipe/starts-with.pipe';
 
 @NgModule({
   imports: [
@@ -17,14 +18,16 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     RoutesComponent,
     ClientsComponent,
     SubscriptionsComponent,
-    KeysPipe
+    KeysPipe,
+    StartsWithPipe
   ],
   exports: [
     DashboardComponent,
     RoutesComponent,
     ClientsComponent,
     SubscriptionsComponent,
-    KeysPipe
+    KeysPipe,
+    StartsWithPipe
   ]
 })
 export class MonitoringModule { }
