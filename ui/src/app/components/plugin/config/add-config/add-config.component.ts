@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PluginService } from '../../../../services/plugin.service';
 import { ConfigSchema, Section, Column, InstanceConfig, PluginConfigResult } from '../../../../models/plugin';
-import { KeystringPipe } from '../../../../constants/keystring.pipe';
-import { KeyobjectPipe } from '../../../../constants/keyobject.pipe';
+import { KeystringPipe } from '../../../../pipe/keystring.pipe';
+import { KeyobjectPipe } from '../../../../pipe/keyobject.pipe';
 
 @Component({
   selector: 'app-add-config',
