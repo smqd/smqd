@@ -8,69 +8,93 @@
             Publish Client
           </div>
         </div>
-        <form [formGroup]="option" novalidate>
-        <div class="ibox-content">
-          <div class="row">
-            <div class="col-lg-12 row">
-              <div class="col-lg-4">
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <form [formGroup]="option" novalidate>
+          <div class="col-lg-12">
+            <div class="col-lg-4">
                 <div class="form-group" >
-                  <label>host</label>
-                  <input class="form-control b-r-md dark-bg" formControlName="host" placeholder="127.0.0.1">
+                  <label>host</label><label class="required" *ngIf="option.controls.hostname.errors">required</label>
+                  <input class="form-control b-r-md dark-bg" formControlName="hostname" id="hostname" placeholder="127.0.0.1">
                 </div>
               </div>
               <div class="col-lg-4">
-                <div class="form-group" >
-                  <label>port</label>
+                <div class="form-group">
+                  <label>port</label><label class="required" *ngIf="option.controls.port.errors">required</label>
                   <input class="form-control b-r-md dark-bg" formControlName="port" placeholder="8086">
                 </div>
               </div>    
               <div class="col-lg-4">
-                <div class="form-group" >
-                  <label>client id</label>
+                <div class="form-group">
+                  <label>client id</label><label class="required" *ngIf="option.controls.clientId.errors">required</label>
                   <input class="form-control b-r-md dark-bg" formControlName="clientId">
                 </div>
               </div>
+            <div class="col-lg-4">
+              <div class="form-group" >
+                <label>username</label>
+                <input class="form-control b-r-md dark-bg" formControlName="username">
+              </div>
             </div>
-
-            <div class="col-lg-12 row">
-              <div class="col-lg-4">
-                <div class="form-group" >
-                  <label>username</label>
-                  <input class="form-control b-r-md dark-bg" formControlName="username">
-                </div>
+            <div class="col-lg-4">
+              <div class="form-group" >
+                <label>password</label>
+                <input class="form-control b-r-md dark-bg" formControlName="password">
               </div>
-              <div class="col-lg-4">
-                <div class="form-group" >
-                  <label>password</label>
-                  <input class="form-control b-r-md dark-bg" formControlName="password">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group" >
-                    <label>connect</label>
-                    <button *ngIf="!state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="connectMqtt(option.value)" [disabled]="state" >connect</button>
-                    <button *ngIf="state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
-                </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group" >
+                  <label>connect</label>
+                  <button *ngIf="!state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="connectMqtt(option.value)" [disabled]="state" >connect</button>
+                  <button *ngIf="state" class="b-r-md dark-bg connect_{{state}}" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
               </div>
             </div>
             <div class="col-lg-12">
               <div class="form-group" >
-                <label>will</label>
-                <textarea formControlName="will" class="form-control b-r-md dark-bg" placeholder='{"topic": "/test", "payload": "Client is down", "qos": 1, "retain": true}'></textarea>
+                <!-- <textarea formControlName="will" class="form-control b-r-md dark-bg" placeholder='{"topic": "/test", "payload": "Client is down", "qos": 1, "retain": true}'></textarea> -->
+                <button class="b-r-md dark-bg" (click)="toggle()">will</button>
               </div>
             </div>
           </div>
+        </form>
+        <form [formGroup]="will" novalidate>
+          <div class="col-lg-12" *ngIf="viewWill">
+            <div class="col-lg-4">
+              <div class="form-group" >
+                <label>topic</label>
+                <label class="required" *ngIf="will.controls.topic.errors">invalid</label>
+                <label class="required" *ngIf="will.controls.payload.value && !will.controls.topic.value">required</label>
+                <input class="form-control b-r-md dark-bg" formControlName="topic">
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="form-group">
+                <label>payload</label>
+                <label class="required" *ngIf="will.controls.topic.value && !will.controls.payload.value">required</label>
+                <input class="form-control b-r-md dark-bg" formControlName="payload">
+              </div>
+            </div>     
+            <div class="col-lg-2">
+              <div class="form-group" >
+                <label>QoS</label>
+                <select class="form-control b-r-md dark-bg" formControlName="qos">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-1">
+              <div class="form-group" >
+                <label>retain</label>
+                <input type="checkbox" formControlName="retain">
+              </div>
+            </div>
+          </div>
+        </form>
         </div>
-      </form>
       </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="col-lg-12">
-    <div class="ibox">
       
       <div class="ibox-title">
         <div class="row">
@@ -78,17 +102,18 @@
             Publish
           </div>
         </div>
-        <form [formGroup]="pub" novalidate>
+      </div>
+      <form [formGroup]="pub" novalidate>
         <div class="ibox-content">
           <div class="row">
-            <div class="col-lg-12 row">
-              <div class="col-lg-4">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group" >
-                  <label>topic</label>
+                  <label>topic</label>&nbsp;<label class="required" *ngIf="pub.controls.topic.errors">invalid</label>
                   <input class="form-control b-r-md dark-bg" formControlName="topic" placeholder="topic">
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-2">
                 <div class="form-group" >
                   <label>QoS</label>
                   <select class="form-control b-r-md dark-bg" formControlName="qos">
@@ -98,56 +123,50 @@
                   </select>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-1">
                 <div class="form-group" >
                   <label>retain</label>
                   <input type="checkbox" formControlName="retain">
                 </div>
               </div>
-              <div class="col-lg-12 row">
-                <div class="col-lg-9">
-                  <div class="form-group" >
-                    <label>Message</label>
-                    <input class="form-control b-r-md dark-bg" formControlName="message" placeholder="message">
-                  </div>
+              <div class="col-lg-3">
+                <div class="form-group" >
+                  <label>&nbsp;</label>
+                  <button class="b-r-md dark-bg" type="button" (click)="unsafePublish(pub.value)" [disabled]="!state">pub</button>
                 </div>
-                <div class="col-lg-3">
-                  <div class="form-group" >
-                    <label>&nbsp;</label>
-                    <button class="b-r-md dark-bg" type="button" (click)="unsafePublish(pub.value)">publish</button>
-                  </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group" >
+                  <label>Message</label>
+                  <input class="form-control b-r-md dark-bg" formControlName="message" placeholder="message">
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="col-lg-12">
-    <div class="ibox">
-      
+      </form>
       <div class="ibox-title">
         <div class="row">
           <div class="col-lg-12">
-            Sent Messages
+            <div class="col-lg-9">
+                Sent Messages
+            </div>
+            <div class="col-lg-3">
+              <button class="b-r-md dark-bg" type="button" (click)="resetList()">clear</button>
+            </div>
           </div>
         </div>
+      </div>
         <div class="ibox-content">
           <div class="row">
-            <div class="col-lg-11 row">
+            <div class="col-lg-12">
               <table class="table">
                 <thead>
                   <tr>
-                    <th style="width:30%">Message</th>
-                    <th style="width:20%">Topic</th>
-                    <th style="width:5%">QoS</th>
-                    <th style="width:20%">Time</th>
+                    <th style="width:33%">Message</th>
+                    <th style="width:22%">Topic</th>
+                    <th style="width:3%">QoS</th>
+                    <th style="width:17%">Time</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -155,18 +174,14 @@
                       <td>{{pub.message}}</td>
                       <td>{{pub.topic}}</td>
                       <td>{{pub.qos}}</td>
-                      <td>{{pub.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                      <td>{{pub.time | date:'yy/MM/dd HH:mm:ss'}}</td>
                     </tr>
                 </tbody>
               </table>
             </div>
-            <div class="col-lg-1">
-              <button class="b-r-md dark-bg" type="button" (click)="resetList()">clear</button>
-            </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
   
