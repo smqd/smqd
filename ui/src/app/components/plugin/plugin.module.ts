@@ -16,6 +16,7 @@ import { EditConfigComponent } from './config/edit-config/edit-config.component'
 import { SectionComponent } from './config/section/section.component';
 import { KeyobjectPipe } from '../../pipe/keyobject.pipe';
 import { PluginFailureComponent } from './plugin-failure/plugin-failure.component';
+import { TextareaComponent } from './config/textarea/textarea.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { PluginFailureComponent } from './plugin-failure/plugin-failure.componen
     AddConfigComponent,
     EditConfigComponent,
     SectionComponent,
-    PluginFailureComponent
+    PluginFailureComponent,
+    TextareaComponent
   ],
   exports: [
     PackagesComponent,

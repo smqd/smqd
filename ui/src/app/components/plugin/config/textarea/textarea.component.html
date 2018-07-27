@@ -1,0 +1,6 @@
+<div class="form-group" >
+  <label *ngIf="column.title != null">{{column.title}}</label>
+  <label *ngIf="column.title == null">{{column.key}}</label>
+  {{column.type}}
+  <textarea name="{{column.key}}" class="form-control b-r-md dark-bg" placeholder="{{column.placeholder}}" [(ngModel)]="column.value"></textarea>
+</div>
