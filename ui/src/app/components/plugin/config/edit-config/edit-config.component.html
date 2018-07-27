@@ -12,13 +12,13 @@
           <div class="row">
             <div class="form-group col-lg-4">
               <label>Instance Name</label>
-              <input type="text" class="form-control b-r-md dark-bg" [(ngModel)]="instanceName" disabled>
+              <input type="text" name="instanceName" class="form-control b-r-md dark-bg" [(ngModel)]="instanceName" disabled>
             </div>
 
             <div class="form-group col-lg-4">
               <label>Auto Start</label>
               <div *ngIf="newConfig">
-                <ui-switch  [(ngModel)]="newConfig['auto-start']"></ui-switch>
+                <ui-switch name="autoStart" [(ngModel)]="newConfig['auto-start']"></ui-switch>
               </div>
             </div>
           </div>

@@ -1,3 +1,7 @@
-<p>
-  select works!
-</p>
+<div class="form-group" >
+    <label *ngIf="column.title != null">{{column.title}}</label>
+    <label *ngIf="column.title == null">{{column.key}}</label>
+    <select class="form-control b-r-md dark-bg" name="{{column.key}}" [(ngModel)]="column.value">
+      <option *ngFor="let enum of column.enum">{{enum}}</option>
+    </select>
+  </div>

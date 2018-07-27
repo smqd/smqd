@@ -46,7 +46,7 @@
           </div>
           <div class="col-xs-8 text-right">
             <span> Load </span>
-            <h2 class="font-bold">{{cpu | number: '1.2-2'}}</h2>
+            <h2 class="font-bold" *ngIf="metrics">{{metrics[keyNames.cpu] | number: '1.2-2'}}</h2>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
           </div>
           <div class="col-xs-8 text-right">
             <span> Threads </span>
-            <h2 class="font-bold">{{threadCount}}</h2>
+            <h2 class="font-bold" *ngIf="metrics">{{metrics[keyNames.thread] | number}}</h2>
           </div>
         </div>
       </div>
@@ -114,10 +114,10 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody *ngIf="metricsMqtt">
-              <tr *ngFor="let key of metricsMqtt | keys">
-                <td>{{key}}</td>
-                <td class="text-right">{{metricsMqtt[key]}}</td>
+            <tbody *ngIf="metrics">
+              <tr *ngFor="let key of metrics | keys" [hidden]="!key.startsWith(keyNames.mqtt)">
+                <td>{{key | slice: keyNames.mqtt.length + 1}}</td>
+                <td class="text-right">{{metrics[key]}}</td>
               </tr>
             </tbody>
           </table>
@@ -135,10 +135,10 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody *ngIf="metricsWs">
-              <tr *ngFor="let key of metricsWs | keys">
-                <td>{{key}}</td>
-                <td class="text-right">{{metricsWs[key]}}</td>
+            <tbody *ngIf="metrics">
+              <tr *ngFor="let key of metrics | keys" [hidden]="!key.startsWith(keyNames.ws)">
+                <td>{{key | slice: keyNames.ws.length + 1}}</td>
+                <td class="text-right">{{metrics[key]}}</td>
               </tr>
             </tbody>
           </table>
@@ -156,14 +156,27 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody *ngIf="metricsJvm">
+            <tbody *ngIf="metrics">
+              <tr *ngFor="let key of metrics | keys" [hidden]="!(key.startsWith(keyNames.jvm) || key.startsWith(keyNames.fd))">
+                <ng-container *ngIf="key.startsWith(keyNames.fd)">
+                  <td>fd</td>
+                  <td class="text-right">{{metrics[key]}} ea</td>
+                </ng-container>
+                <ng-container *ngIf="!key.startsWith(keyNames.fd)">
+                  <td>{{key | slice: keyNames.jvm.length + 1}}</td>
+                  <td class="text-right" *ngIf="!key.includes('total')">{{metrics[key] / 1000000 | number: '1.2-2'}} MB</td>
+                  <td class="text-right" *ngIf="key.includes('total')">{{metrics[key] / 1000000000 | number: '1.2-2'}} GB</td>
+                </ng-container>
+              </tr>
+            </tbody>
+            <!-- <tbody *ngIf="metricsJvm">
               <tr *ngFor="let key of metricsJvm | keys">
                 <td>{{key}}</td>
                 <td class="text-right" *ngIf="key != 'total' && key != 'fd'">{{metricsJvm[key] / 1000000 | number: '1.2-2'}} MB</td>
                 <td class="text-right" *ngIf="key == 'total'">{{metricsJvm[key] / 1000000000 | number: '1.2-2'}} GB</td>
                 <td class="text-right" *ngIf="key == 'fd'">{{metricsJvm[key]}} ea</td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
         </div>
       </div>

@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PluginService } from '../../../../services/plugin.service';
 import { ConfigSchema, Section, Column, InstanceConfig, PluginConfigResult } from '../../../../models/plugin';
-import { KeystringPipe } from '../../../../constants/keystring.pipe';
-import { KeyobjectPipe } from '../../../../constants/keyobject.pipe';
+import { KeystringPipe } from '../../../../pipe/keystring.pipe';
+import { KeyobjectPipe } from '../../../../pipe/keyobject.pipe';
 
 @Component({
   selector: 'app-add-config',
@@ -64,7 +64,7 @@ export class AddConfigComponent implements OnInit {
         // configSchema가 없을 경우에는 defaultConfig 만 화면에 표시한다.
           this.instanceConfig = [];
           for (let key in this.defaultConfig) {
-            this.instanceConfig.push({key: key, value:this.defaultConfig[key], type:null, title:null, placeHolder:null});
+            this.instanceConfig.push(new Column({key: key, value: this.defaultConfig[key]}));
           }
           console.log('this.instanceConfig = ', this.instanceConfig);
         }
