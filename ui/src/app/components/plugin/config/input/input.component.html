@@ -1,13 +1,13 @@
 <div class="form-group" *ngIf="column.type != 'boolean'">
   <label *ngIf="column.title != null">{{column.title}}</label>
   <label *ngIf="column.title == null">{{column.key}}</label>
-  <input type="{{column.type=='integer'? 'number':'text'}}" class="form-control b-r-md dark-bg" placeholder="{{column.placeHolder}}" [(ngModel)]="column.value">
+  <input type="{{column.type=='integer'? 'number':'text'}}" name="{{column.key}}" class="form-control b-r-md dark-bg" placeholder="{{column.placeHolder}}" [(ngModel)]="column.value" >
 </div>
 
 <div class="form-group" *ngIf="column.type == 'boolean'">
   <label *ngIf="column.title != null">{{column.title}}</label>
   <label *ngIf="column.title == null">{{column.key}}</label>
   <div class="checkbox-small">
-    <ui-switch [(ngModel)]="column.value"></ui-switch>
+    <ui-switch name="{{column.key}}" [(ngModel)]="column.value"></ui-switch>
   </div>
 </div>
