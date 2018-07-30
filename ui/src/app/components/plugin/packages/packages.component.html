@@ -31,8 +31,8 @@
                   <td>{{package.description}}</td>
                   <td>{{package.provider}}</td>
                   <td *ngIf="!package.installable"></td>
-                  <td *ngIf="package.installable && package.installed"><button type="button" class="b-r-md dark-bg" (click)="reload(package.name)">ReInstall</button></td>
-                  <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md dark-bg" (click)="install(package.name)">Install</button></td>
+                  <td *ngIf="package.installable && package.installed"><button type="button" class="b-r-md btn-dark" (click)="reload(package.name)">ReInstall</button></td>
+                  <td *ngIf="package.installable && !package.installed"><button type="button" class="b-r-md btn-dark" (click)="install(package.name)">Install</button></td>
                 </tr>
               </tbody>
             </table>
