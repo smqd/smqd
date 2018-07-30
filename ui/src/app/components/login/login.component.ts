@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   user: FormControl;
   password: FormControl;
   
-  error: object;
+  errorMessage: string;
 
   constructor(private auth: AuthService, private router: Router, private fb: FormBuilder) {
   }
@@ -42,11 +43,13 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/monitoring/dashboard');
     }, 
     error => {
-      console.log('login error', error);
-      this.error = error;
-    });//,
-    // () => {
-    //   console.log('login success');
-    // });
+      if (error instanceof HttpErrorResponse) {
+        if (error.status == 0) {
+          this.errorMessage = 'Unable to connect to the server!';
+        } else if (error.status == 401) {
+          this.errorMessage = error.error.error;
+        }
+      }
+    });
   }
 }
