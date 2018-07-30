@@ -46,14 +46,14 @@
             <div class="col-lg-4">
               <div class="form-group" >
                   <label>connect</label>
-                  <button *ngIf="!state" class="b-r-md btn-dark connect_{{state}}" type="button" (click)="connectMqtt(option.value)" [disabled]="state" >connect</button>
-                  <button *ngIf="state" class="b-r-md btn-dark connect_{{state}}" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
+                  <button *ngIf="!state" class="btn b-r-md btn-dark connect_{{state}}" type="button" (click)="connectMqtt(option.value)" [disabled]="state" >connect</button>
+                  <button *ngIf="state" class="btn b-r-md btn-dark connect_{{state}}" type="button" (click)="disConnectMqtt()" [disabled]="!state">disconnect</button>
               </div>
             </div>
             <div class="col-lg-12">
               <div class="form-group" >
                 <!-- <textarea formControlName="will" class="form-control b-r-md dark-bg" placeholder='{"topic": "/test", "payload": "Client is down", "qos": 1, "retain": true}'></textarea> -->
-                <button class="b-r-md btn-dark" (click)="toggle()">will</button>
+                <button class="btn b-r-md btn-dark" (click)="toggle()">will</button>
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@
               <div class="col-lg-3">
                 <div class="form-group" >
                   <label>&nbsp;</label>
-                  <button class="b-r-md btn-dark" type="button" (click)="unsafePublish(pub.value)" [disabled]="!state">pub</button>
+                  <button class="btn b-r-md btn-dark" type="button" (click)="unsafePublish(pub.value)" [disabled]="!state">pub</button>
                 </div>
               </div>
               <div class="col-lg-12">
@@ -152,7 +152,7 @@
                 Sent Messages
             </div>
             <div class="col-lg-3">
-              <button class="b-r-md btn-dark" type="button" (click)="resetList()">clear</button>
+              <button class="btn b-r-md btn-dark" type="button" (click)="resetList()">clear</button>
             </div>
           </div>
         </div>

@@ -42,7 +42,9 @@
                       <tbody>
                           <tr *ngIf="plugin.instances.length == 0">
                             <td colspan="4"></td>
-                            <td *ngIf="plugin.instantiability == 'MULTIPLE'"><button type="button" class="b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, 'instance', 'add']">new</button></td>
+                            <td *ngIf="plugin.instantiability == 'MULTIPLE'">
+                              <button type="button" class="btn btn-sm b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, 'instance', 'add']">new</button>
+                            </td>
                           </tr>
 
                           <tr *ngFor="let instance of plugin.instances">
@@ -54,14 +56,16 @@
                             </a>
                           </td>
                           <td>
-                            <button type="button" class="b-r-md btn-dark" *ngIf="instance.status == 'RUNNING' || instance.status == 'STARTING'" (click)="stopInstance(plugin.name, instance.name)">stop</button>
-                            <button type="button" class="b-r-md btn-dark" *ngIf="instance.status == 'STOPPED' || instance.status == 'STOPING'" (click)="startInstance(plugin.name, instance.name)">start</button>
+                            <button type="button" class="btn btn-sm b-r-md btn-dark" *ngIf="instance.status == 'RUNNING' || instance.status == 'STARTING'" (click)="stopInstance(plugin.name, instance.name)">stop</button>
+                            <button type="button" class="btn btn-sm b-r-md btn-dark" *ngIf="instance.status == 'STOPPED' || instance.status == 'STOPING'" (click)="startInstance(plugin.name, instance.name)">start</button>
                           </td>
-                          <td><button type="button" class="b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, instance.name, 'edit']">config</button></td>
+                          <td>
+                            <button type="button" class="btn btn-sm b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, instance.name, 'edit']">config</button>
+                          </td>
                           <td *ngIf="plugin.instantiability == 'SINGLE'"></td>
                           <td *ngIf="plugin.instantiability == 'MULTIPLE'">
-                            <button type="button" class="b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, 'instance', 'add']">new</button>
-                            <button type="button" class="b-r-md btn-dark" (click)="removeInstance(plugin.name, instance.name)">del</button>
+                            <button type="button" class="btn btn-sm b-r-md btn-dark" [routerLink]="['/plugin', plugin.name, 'instance', 'add']">new</button>
+                            <button type="button" class="btn btn-sm b-r-md btn-dark" (click)="removeInstance(plugin.name, instance.name)">del</button>
                           </td>
                         </tr>
                       </tbody>
