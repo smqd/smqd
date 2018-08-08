@@ -117,7 +117,8 @@
             <tbody *ngIf="metrics">
               <tr *ngFor="let key of metrics | keys" [hidden]="!key.startsWith(keyNames.mqtt)">
                 <td>{{key | slice: keyNames.mqtt.length + 1}}</td>
-                <td class="text-right">{{metrics[key]}}</td>
+                <td class="text-right" *ngIf="!key.includes('messages.byte')">{{metrics[key]}}</td>
+                <td class="text-right" *ngIf="key.includes('messages.byte')">{{metrics[key] | byte: '1.0-2'}}</td>
               </tr>
             </tbody>
           </table>
@@ -138,7 +139,8 @@
             <tbody *ngIf="metrics">
               <tr *ngFor="let key of metrics | keys" [hidden]="!key.startsWith(keyNames.ws)">
                 <td>{{key | slice: keyNames.ws.length + 1}}</td>
-                <td class="text-right">{{metrics[key]}}</td>
+                <td class="text-right" *ngIf="!key.includes('messages.byte')">{{metrics[key]}}</td>
+                <td class="text-right" *ngIf="key.includes('messages.byte')">{{metrics[key] | byte: '1.0-2'}}</td>
               </tr>
             </tbody>
           </table>
@@ -160,12 +162,12 @@
               <tr *ngFor="let key of metrics | keys" [hidden]="!(key.startsWith(keyNames.jvm) || key.startsWith(keyNames.fd))">
                 <ng-container *ngIf="key.startsWith(keyNames.fd)">
                   <td>fd</td>
-                  <td class="text-right">{{metrics[key]}} ea</td>
+                  <td class="text-right">{{metrics[key]}}</td>
                 </ng-container>
                 <ng-container *ngIf="!key.startsWith(keyNames.fd)">
                   <td>{{key | slice: keyNames.jvm.length + 1}}</td>
-                  <td class="text-right" *ngIf="!key.includes('total')">{{metrics[key] / 1000000 | number: '1.2-2'}} MB</td>
-                  <td class="text-right" *ngIf="key.includes('total')">{{metrics[key] / 1000000000 | number: '1.2-2'}} GB</td>
+                  <td class="text-right" *ngIf="!key.includes('total')">{{metrics[key] | byte: '1.2-2'}}</td>
+                  <td class="text-right" *ngIf="key.includes('total')">{{metrics[key] | byte: '1.2-2'}}</td>
                 </ng-container>
               </tr>
             </tbody>

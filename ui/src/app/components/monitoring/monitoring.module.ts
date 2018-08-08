@@ -7,6 +7,7 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { KeysPipe } from '../../pipe/keys.pipe';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { StartsWithPipe } from '../../pipe/starts-with.pipe';
+import { BytePipe } from '../../pipe/byte.pipe'
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { StartsWithPipe } from '../../pipe/starts-with.pipe';
     ClientsComponent,
     SubscriptionsComponent,
     KeysPipe,
-    StartsWithPipe
+    StartsWithPipe,
+    BytePipe
   ],
   exports: [
     DashboardComponent,
@@ -27,7 +29,8 @@ import { StartsWithPipe } from '../../pipe/starts-with.pipe';
     ClientsComponent,
     SubscriptionsComponent,
     KeysPipe,
-    StartsWithPipe
+    StartsWithPipe,
+    BytePipe
   ]
 })
 export class MonitoringModule { }
