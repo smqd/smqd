@@ -7,6 +7,7 @@ import { MetricService } from '../../../services/metric.service';
 import { ClientService } from '../../../services/client.service';
 import { MqttMessageService } from '../../../services/mqtt-message.service';
 import { Config } from '../../../constants/config.constants';
+import { BytePipe } from '../../../pipe/byte.pipe'
 
 @Component({
   selector: 'app-dashboard',
@@ -83,7 +84,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (metrics['code']) {
           return;
         }
-
         this.metrics = metrics.result;
       }
     );

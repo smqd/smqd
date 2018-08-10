@@ -5,13 +5,13 @@ import sbt.StdoutOutput
 
 import scala.sys.process._
 
-val smqdVersion = "0.4.1-SNAPSHOT"
+val smqdVersion = "0.4.2-SNAPSHOT"
 
 lazy val npmBuildTask = taskKey[Unit]("build ui")
 npmBuildTask := {
   Option(System.getProperty("with-ui")) match {
     case Some("true") =>
-      println("Building JavaScript ui ...")
+      println("Building Dashboard UI ...")
       val uiDir = new File("./ui")
       val npmInstall = Process("npm install", uiDir)
       val npmBuild   = Process("npm run build", uiDir)
@@ -19,7 +19,7 @@ npmBuildTask := {
 
       println(s"Build: '$res'")
     case _ =>
-      println("Skip building JavaScript ui ...")
+      println("Skip building Dashboard UI ...")
   }
 }
 
