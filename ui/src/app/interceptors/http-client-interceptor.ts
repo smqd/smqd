@@ -4,19 +4,27 @@ import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
 } from '@angular/common/http';
 import { Config } from '../constants/config.constants';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class HttpClientInterceptor implements HttpInterceptor {
-  // endPoint = Config.httpEndpoint;
-  // apiBaseUrl = Config.apiBaseUrl;
-  platformUrl = `http://${Config.httpEndpoint}/${Config.apiBaseUrl}`;
-  
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let apiUrl = this.platformUrl + req.url;
+
+    if (!environment.production) {
+      const secureReq = this.setPlatformUrl(req);
+      return next.handle(secureReq);
+    }
+    
+    return next.handle(req);
+  }
+  
+  setPlatformUrl(req) {
+    let apiUrl = `http://${Config.httpEndpoint}/${Config.apiBaseUrl}` + req.url;
     const secureReq = req.clone({
       url : apiUrl
     });
-    
-    return next.handle(secureReq);
+    return secureReq;
   }
+
 }

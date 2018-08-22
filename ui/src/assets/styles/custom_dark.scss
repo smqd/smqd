@@ -33,6 +33,40 @@ hr {
   opacity: 1;
 }
 
+.btn-dark.btn-outline:hover {
+  color: #aaa;
+}
+
+.btn-dark {
+  background-color: #232429;
+  border-color: #313437;
+  color: #aaa;
+}
+
+.btn-dark:hover, .btn-dark:focus, .btn-dark:active, .btn-dark.active, .open .dropdown-toggle.btn-dark, .btn-dark:active:focus, .btn-dark:active:hover, .btn-dark.active:hover, .btn-dark.active:focus {
+  background-color: darken(#232429, 3%);
+  border-color: darken(#313437, 3%);
+  color: #aaa;
+}
+
+.btn-dark:active, .btn-dark.active, .open .dropdown-toggle.btn-dark {
+  background-image: none;
+}
+
+.btn-dark.disabled, .btn-dark.disabled:hover, .btn-dark.disabled:focus, .btn-dark.disabled:active, .btn-dark.disabled.active, .btn-dark[disabled], .btn-dark[disabled]:hover, .btn-dark[disabled]:focus, .btn-dark[disabled]:active, .btn-dark.active[disabled], fieldset[disabled] .btn-dark, fieldset[disabled] .btn-dark:hover, fieldset[disabled] .btn-dark:focus, fieldset[disabled] .btn-dark:active, fieldset[disabled] .btn-dark.active {
+  background-color: lighten(#232429, 4%);
+  border-color: lighten(#313437, 4%);
+}
+
+button.btn-dark.dim {
+  box-shadow: inset 0 0 0 darken(#232429, 6%), 0 5px 0 0 darken(#232429, 6%), 0 10px 5px #999;
+}
+
+button.btn-dark.dim:active {
+  box-shadow: inset 0 0 0 darken(#232429, 6%), 0 2px 0 0 darken(#232429, 6%), 0 5px 3px #999;
+}
+
+
 /** top navigation **/
 .navbar-fixed-top, .navbar-static-top{
   background-color: #1d1e24 !important;
@@ -44,6 +78,14 @@ hr {
   padding: 0;
   width: 100%;
   align-items: inherit;
+}
+.navbar .btn {
+  padding: 3px 20px;
+}
+.navbar .dropdown-menu {
+  margin-top: -10px;
+  margin-right: 21px;
+  background-color: #1d1e24;
 }
 
 @media (max-width: 768px) {

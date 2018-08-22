@@ -5,7 +5,7 @@
       </div>
       <div class="col-lg-2">
         <div class="text-right m-sm">
-          <button type="button" class="b-r-md dark-bg" routerLink="/user/add">New User</button>
+          <button type="button" class="btn b-r-md btn-dark" routerLink="/user/add">New User</button>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
                 <tr *ngFor="let user of users?.result">
                   <td>{{user.username}}</td>
                   <!-- <td>{{user.password}}</td> -->
-                  <td><button type="button" class="b-r-md dark-bg" [routerLink]="['/user', user.username]">edit</button></td>
+                  <td><button type="button" class="btn b-r-md btn-dark" [routerLink]="['/user', user.username]">edit</button></td>
                 </tr>
               </tbody>
             </table>

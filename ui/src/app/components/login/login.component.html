@@ -10,8 +10,8 @@
 					<input type="text" name="user" class="form-control id" formControlName="user" placeholder="ID" autocomplete="user" maxlength="20">
 					<input type="password" name="password" class="form-control pw" formControlName="password" placeholder="PASSWORD" autocomplete="password" maxlength="20">
 				
-					<div class="danger" *ngIf="error">
-							<strong>{{error['error']}}</strong>
+					<div class="danger" *ngIf="errorMessage">
+							<strong>{{errorMessage}}</strong>
 					</div>
 					<div class="form-footer">
 						<button type="submit" class="btn btn-primary btn-block" (click)="login(myForm.value)">Log In</button>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class BaseService {
@@ -17,7 +18,7 @@ export class BaseService {
       console.error(operation + ' error....', error); // log to console instead
       // Let the app keep running by returning an empty result.
       //return of(error.error as T);
-      return throwError(error.error);
+      return throwError(error);
     };
   }
 
