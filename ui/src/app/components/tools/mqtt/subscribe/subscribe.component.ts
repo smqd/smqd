@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { isString } from 'util';
 import { isNull } from '../../../../../../node_modules/@angular/compiler/src/output/output_ast';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-subscribe',
@@ -37,8 +38,13 @@ export class SubscribeComponent implements OnInit, OnDestroy {
       'qos':[0],
       'retain': false
     });
+    
+    var hostname = '127.0.0.1';
+    if (environment.production) {
+      hostname = location.hostname;
+    }
     this.option = this.fb.group({
-      'hostname': ['127.0.0.1', Validators.required],
+      'hostname': [hostname, Validators.required],
       'port': [8086, Validators.required],
       'clientId': ['SubClient_' + parseInt((new Date().getTime()).toString().substring(10,12).concat(Math.floor(Math.random() * 100)+'', '0')),
                     Validators.required],

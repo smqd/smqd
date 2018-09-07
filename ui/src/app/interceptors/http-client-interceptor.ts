@@ -11,16 +11,18 @@ export class HttpClientInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!environment.production) {
-      const secureReq = this.setPlatformUrl(req);
-      return next.handle(secureReq);
-    }
-    
-    return next.handle(req);
+    const secureReq = this.setPlatformUrl(req);
+    return next.handle(secureReq);
   }
   
   setPlatformUrl(req) {
-    let apiUrl = `http://${Config.httpEndpoint}/${Config.apiBaseUrl}` + req.url;
+    let apiUrl = `${Config.apiBaseUrl}` + req.url;
+    if (environment.production) {
+     apiUrl = `http://${location.host}/` + apiUrl;
+    } else {
+      apiUrl = `http://${Config.httpEndpoint}/` + apiUrl;
+    }
+    
     const secureReq = req.clone({
       url : apiUrl
     });

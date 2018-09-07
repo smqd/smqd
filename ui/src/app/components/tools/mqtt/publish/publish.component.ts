@@ -3,6 +3,7 @@ import { MqttService} from 'ngx-mqtt';
 import { Subscription } from 'rxjs';
 import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { isString } from 'util';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-publish',
@@ -36,8 +37,12 @@ export class PublishComponent implements OnInit, OnDestroy {
       'qos':[0],
       'retain': false
     });
+    var hostname = '127.0.0.1';
+    if (environment.production) {
+      hostname = location.hostname;
+    }
     this.option = this.fb.group({
-      'hostname': ['127.0.0.1', Validators.required],
+      'hostname': [hostname, Validators.required],
       'port': [8086, Validators.required],
       'clientId': ['PubClient_' + parseInt((new Date().getTime()).toString().substring(10,12).concat(Math.floor(Math.random() * 100)+'', '0')),
                     Validators.required],
